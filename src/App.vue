@@ -10,8 +10,11 @@
     </md-toolbar>
 
     <!-- <router-link to="/sign">Entrar</router-link> -->
-
-    <router-view></router-view>
+    <div class="md-layout md-gutter router-body">
+      <div class="md-layout-item md-size-100">
+        <router-view></router-view>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -22,3 +25,9 @@ export default {
   name: 'App'
 }
 </script>
+
+<style scoped>
+  .router-body {
+    margin-top: 5px;
+  }
+</style>

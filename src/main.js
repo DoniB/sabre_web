@@ -28,6 +28,8 @@ Vue.use(MdSnackbar)
 
 Vue.config.productionTip = false
 
+// const axios = require('axios');
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
