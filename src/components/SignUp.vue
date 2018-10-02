@@ -40,8 +40,13 @@
       <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
       <md-card-actions>
-        <md-button type="submit" class="md-primary" @click="validateUser"> Cadastrar </md-button>
+        <md-button type="submit" class="md-primary" @click="validateUser" :disabled="sending"> Cadastrar </md-button>
       </md-card-actions>
+
+      <md-snackbar :md-position="'center'" :md-duration="Infinity" :md-active.sync="showSnackbar" md-persistent>
+        <span>Ops, algo deu errado :( Por favor tente novamente mais tarde.</span>
+        <md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
+      </md-snackbar>
     </div>
 </template>
 
@@ -53,12 +58,17 @@ import {
   minLength,
   sameAs
 } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
+import router from '@/router'
+
+const axios = require('axios')
 
 export default {
   name: 'sign-up',
   mixins: [validationMixin],
   data () {
     return {
+      showSnackbar: false,
       form: {
         username: '',
         email: '',
@@ -72,11 +82,9 @@ export default {
     validateUser () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        // this.saveUser()
-        // this.sending = !this.sending
-        this.userCreated = !this.userCreated
+        this.sending = true
+        this.createUser()
       }
-      return false
     },
     getValidationClass (fieldName) {
       const field = this.$v.form[fieldName]
@@ -86,7 +94,27 @@ export default {
           'md-invalid': field.$invalid && field.$dirty
         }
       }
-    }
+    },
+    createUser () {
+      axios
+        .post('https://sabre-api.herokuapp.com/api/v1/user', {
+          username: this.form.username,
+          email: this.form.email,
+          password: this.form.password,
+          password_confirmation: this.form.password_confirmation
+        })
+        .then(response => (this.userCreated(response)))
+        .catch(this.requestError)
+    },
+    userCreated (response) {
+      this.loadUser(response.data)
+      router.push('/')
+    },
+    requestError () {
+      this.sending = false
+      this.showSnackbar = true
+    },
+    ...mapActions(['loadUser'])
   },
   validations: {
     form: {
@@ -106,6 +134,11 @@ export default {
         required,
         sameAs: sameAs('password')
       }
+    }
+  },
+  created () {
+    if (this.$store.state.isLogged) {
+      router.push('/')
     }
   }
 }
