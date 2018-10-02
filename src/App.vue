@@ -5,7 +5,7 @@
        <h3 class="md-title">SABRE</h3>
        <md-button to="/"><md-icon>home</md-icon> Inicio</md-button>
        <div class="md-toolbar-section-end">
-        <a v-if="$store.state.isLogged" @click="unloadUser">Sair</a>
+        <a v-if="$store.state.isLogged" @click="logOut">Sair</a>
         <md-button v-else class="md-default" to="sign"><md-icon>perm_identity</md-icon> Entrar</md-button>
        </div>
     </md-toolbar>
@@ -26,7 +26,11 @@ import { mapActions } from 'vuex'
 export default {
   name: 'App',
   methods: {
-    ...mapActions(['unloadUser'])
+    ...mapActions(['unloadUser']),
+    logOut() {
+      this.unloadUser()
+      this.$cookie.delete('SecureToken')
+    }
   }
 }
 </script>
