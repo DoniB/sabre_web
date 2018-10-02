@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import VueCookie from 'vue-cookie'
 
 import { MdButton,
   MdContent,
@@ -26,6 +27,7 @@ Vue.use(MdCard)
 Vue.use(MdField)
 Vue.use(MdProgress)
 Vue.use(MdSnackbar)
+Vue.use(VueCookie)
 
 Vue.config.productionTip = false
 

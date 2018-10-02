@@ -108,6 +108,7 @@ export default {
     },
     userCreated (response) {
       this.loadUser(response.data)
+      this.$cookie.set('SecureToken', response.data.token, 30)
       router.push('/')
     },
     requestError () {
