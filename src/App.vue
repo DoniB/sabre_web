@@ -27,7 +27,7 @@ export default {
   name: 'App',
   methods: {
     ...mapActions(['unloadUser']),
-    logOut() {
+    logOut () {
       this.unloadUser()
       this.$cookie.delete('SecureToken')
     }

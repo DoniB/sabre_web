@@ -35,6 +35,10 @@ import {
   required,
   email
 } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
+import router from '@/router'
+
+const axios = require('axios')
 
 export default {
   name: 'sign-in',
@@ -52,11 +56,9 @@ export default {
     validateUser () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        // this.saveUser()
+        this.doLogin()
         // this.sending = !this.sending
-        this.userCreated = !this.userCreated
       }
-      return false
     },
     getValidationClass (fieldName) {
       const field = this.$v.form[fieldName]
@@ -66,7 +68,22 @@ export default {
           'md-invalid': field.$invalid && field.$dirty
         }
       }
-    }
+    },
+    doLogin () {
+      axios
+        .post('https://sabre-api.herokuapp.com/api/v1/sign_in', {
+          email: this.form.email,
+          password: this.form.password
+        })
+        .then(response => (this.userCreated(response)))
+        .catch(this.requestError)
+    },
+    userCreated (response) {
+      this.loadUser(response.data)
+      this.$cookie.set('SecureToken', response.data.token, 30)
+      router.push('/')
+    },
+    ...mapActions(['loadUser'])
   },
   validations: {
     form: {
