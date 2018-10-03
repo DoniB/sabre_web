@@ -2,7 +2,7 @@
   <div id="app" class="page-container">
 
     <md-toolbar class="md-medium">
-       <h3 class="md-title">SABRE</h3>
+       <router-link to="/"><h3 class="md-title">SABRE</h3></router-link>
        <md-button to="/"><md-icon>home</md-icon> Inicio</md-button>
        <div class="md-toolbar-section-end">
         <a v-if="$store.state.isLogged" @click="logOut">Sair</a>
