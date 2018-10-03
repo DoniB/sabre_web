@@ -1,7 +1,7 @@
 <template>
     <div>
         <form novalidate class="md-layout" @submit.prevent>
-            <md-card class="md-layout-item md-size-50 md-small-size-50 sign-card">
+            <md-card class="md-layout-item md-size-50 md-xsmall-size-90 md-small-size-50 md-medium-size-40 md-large-size-25 md-xlarge-size-15 sign-card">
                 <md-card-header>
                   <md-tabs md-alignment="centered">
                     <md-tab @click="signup = false" id="signin" md-label="Entrar"></md-tab>
