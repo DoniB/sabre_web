@@ -26,6 +26,11 @@
       <md-card-actions>
         <md-button type="submit" class="md-primary" @click="validateUser"> Entrar </md-button>
       </md-card-actions>
+
+      <md-snackbar :md-position="'center'" :md-duration="Infinity" :md-active.sync="showSnackbar" md-persistent>
+        <span>Por favor verifique o e-mail e a senha</span>
+        <md-button class="md-primary" @click="showSnackbar = false">Fechar</md-button>
+      </md-snackbar>
     </div>
 </template>
 
@@ -45,6 +50,7 @@ export default {
   mixins: [validationMixin],
   data () {
     return {
+      showSnackbar: false,
       form: {
         email: '',
         password: ''
@@ -56,8 +62,8 @@ export default {
     validateUser () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
+        this.sending = true
         this.doLogin()
-        // this.sending = !this.sending
       }
     },
     getValidationClass (fieldName) {
@@ -83,6 +89,10 @@ export default {
       this.$cookie.set('SecureToken', response.data.token, 30)
       router.push('/')
     },
+    requestError () {
+      this.sending = false
+      this.showSnackbar = true
+    },
     ...mapActions(['loadUser'])
   },
   validations: {
@@ -94,6 +104,11 @@ export default {
       password: {
         required
       }
+    }
+  },
+  created () {
+    if (this.$store.state.isLogged) {
+      router.push('/')
     }
   }
 }
