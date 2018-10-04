@@ -53,7 +53,12 @@ export default {
     doLogin (response) {
       this.loadUser(response.data)
       if (this.$route.name === 'sign') {
-        router.push('/')
+        let redirect = this.$route.query.redirect
+        if (redirect) {
+          router.push(redirect)
+        } else {
+          router.push('/')
+        }
       }
     }
   },

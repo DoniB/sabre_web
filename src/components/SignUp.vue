@@ -27,7 +27,7 @@
             </md-field>
           </div>
           <div class="md-layout-item md-medium-size-100">
-            <md-field  :class="getValidationClass('password_confirmation')">
+            <md-field :class="getValidationClass('password_confirmation')">
               <label for="password_confirmation">Confirme senha: </label>
               <md-input type="password" name="password_confirmation" autocomplete="password_confirmation" id="password_confirmation" v-model="form.password_confirmation" :disabled="sending" />
               <span class="md-error" v-if="!$v.form.password_confirmation.required">É necessário confirmar a senha</span>
