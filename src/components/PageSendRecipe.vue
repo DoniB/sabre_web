@@ -1,6 +1,14 @@
 <template>
     <div>
-        <form novalidate class="md-layout" @submit.prevent>
+        <md-card v-if="showRecipeCreated" class="md-layout-item md-size-50 md-small-size-90 center-vertically center-horizontally">
+          <md-card-header>
+            <div class="md-title center-align">
+              Sua receita foi enviada. <br>
+              Obrigado!
+            </div>
+          </md-card-header>
+        </md-card>
+        <form v-else novalidate class="md-layout" @submit.prevent>
             <md-card class="md-layout-item md-size-50 md-small-size-90 sign-card">
                 <md-card-header>
                   <div class="md-title">Cadastro de Receitas</div>
@@ -40,6 +48,9 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
+import router from '@/router'
+
+const axios = require('axios')
 
 export default {
   name: 'sendRecipe',
@@ -48,6 +59,7 @@ export default {
     return {
       showSnackbar: false,
       sending: false,
+      showRecipeCreated: false,
       form: {
         name: '',
         ingredients: '',
@@ -61,12 +73,34 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.sending = true
-        // this.createUser()
+        this.createRecipe()
       }
+    },
+    createRecipe () {
+      let token = this.$cookie.get('SecureToken')
+      axios
+        .post('https://sabre-api.herokuapp.com/api/v1/users/recipe', {
+          name: this.form.name,
+          ingredients: this.form.ingredients,
+          directions: this.form.directions
+        }, { headers: { 'X-Secure-Token': token } })
+        .then(response => (this.recipeCreated(response)))
+        .catch(this.requestError)
+    },
+    recipeCreated (response) {
+      this.showRecipeCreated = true
+      console.log(response.data)
+
+      setTimeout(function () {
+        router.push('/')
+      }, 5000)
+    },
+    requestError () {
+      this.sending = false
+      this.showSnackbar = true
     },
     getValidationClass (fieldName) {
       const field = this.$v.form[fieldName]
-
       if (field) {
         return {
           'md-invalid': field.$invalid && field.$dirty
@@ -96,5 +130,21 @@ export default {
   }
   #text-directions {
     height: 300px;
+  }
+
+  .center-align {
+    text-align: center;
+  }
+
+  .center-vertically {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .center-horizontally {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
   }
 </style>
