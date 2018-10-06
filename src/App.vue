@@ -6,7 +6,12 @@
       <md-button to="/"><md-icon>home</md-icon> Inicio</md-button>
       <div class="md-toolbar-section-end">
         <md-button class="md-default" to="/usuario/enviar-receita"><md-icon>restaurant_menu</md-icon> Enviar Receita </md-button>
-        <a v-if="$store.state.isLogged" @click="logOut">Sair</a>
+        <md-menu md-align-trigger v-if="$store.state.isLogged">
+          <md-button class="md-default" md-menu-trigger><md-icon>perm_identity</md-icon> {{ firstname }}</md-button>
+          <md-menu-content>
+            <md-menu-item  @click="logOut">Sair</md-menu-item>
+          </md-menu-content>
+        </md-menu>
         <md-button v-else class="md-default" to="/sign"><md-icon>perm_identity</md-icon> Entrar</md-button>
       </div>
     </md-toolbar>
@@ -49,6 +54,13 @@ export default {
     logOut () {
       this.unloadUser()
       this.$cookie.delete('SecureToken')
+      if (router.currentRoute.meta.requiresAuth) {
+        router.push(
+          {
+            path: '/sign',
+            query: { redirect: router.currentRoute.fullPath }
+          })
+      }
     },
     doLogin (response) {
       this.loadUser(response.data)
@@ -73,6 +85,11 @@ export default {
         .catch(this.logOut)
     } else {
       console.log('no secure token')
+    }
+  },
+  computed: {
+    firstname () {
+      return this.$store.state.username.split(' ')[0]
     }
   }
 }

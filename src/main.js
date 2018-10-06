@@ -14,7 +14,9 @@ import { MdButton,
   MdCard,
   MdField,
   MdProgress,
-  MdSnackbar } from 'vue-material/dist/components'
+  MdSnackbar,
+  MdMenu,
+  MdList } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -28,6 +30,8 @@ Vue.use(MdField)
 Vue.use(MdProgress)
 Vue.use(MdSnackbar)
 Vue.use(VueCookie)
+Vue.use(MdMenu)
+Vue.use(MdList)
 
 Vue.config.productionTip = false
 
