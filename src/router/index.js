@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import PageIndex from '@/components/PageIndex'
 import PageSign from '@/components/PageSign'
 import PageSendRecipe from '@/components/PageSendRecipe'
+import PageNotFound from '@/components/PageNotFound'
 
 Vue.use(Router)
 
@@ -24,6 +25,9 @@ export default new Router({
       name: 'sendRecipe',
       component: PageSendRecipe,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '*', component: PageNotFound
     }
   ]
 })
