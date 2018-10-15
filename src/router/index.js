@@ -4,6 +4,7 @@ import PageIndex from '@/components/PageIndex'
 import PageSign from '@/components/PageSign'
 import PageSendRecipe from '@/components/PageSendRecipe'
 import PageNotFound from '@/components/PageNotFound'
+import DashboardIndex from '@/components/dashboard/Index.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,12 @@ export default new Router({
       path: '/usuario/enviar-receita',
       name: 'sendRecipe',
       component: PageSendRecipe,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/usuario',
+      name: 'dashboardIndex',
+      component: DashboardIndex,
       meta: { requiresAuth: true }
     },
     {

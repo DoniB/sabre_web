@@ -6,8 +6,11 @@ import router from './router'
 import store from './store'
 import VueCookie from 'vue-cookie'
 
-import { MdButton,
+import {
+  MdApp,
+  MdButton,
   MdContent,
+  MdDrawer,
   MdTabs,
   MdToolbar,
   MdIcon,
@@ -32,6 +35,8 @@ Vue.use(MdSnackbar)
 Vue.use(VueCookie)
 Vue.use(MdMenu)
 Vue.use(MdList)
+Vue.use(MdApp)
+Vue.use(MdDrawer)
 
 Vue.config.productionTip = false
 

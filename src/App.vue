@@ -9,6 +9,7 @@
         <md-menu md-align-trigger v-if="$store.state.isLogged">
           <md-button class="md-default" md-menu-trigger><md-icon>perm_identity</md-icon> {{ firstname }}</md-button>
           <md-menu-content>
+            <md-menu-item  to="/usuario" class="menu-link">Minha Conta</md-menu-item>
             <md-menu-item  @click="logOut">Sair</md-menu-item>
           </md-menu-content>
         </md-menu>
