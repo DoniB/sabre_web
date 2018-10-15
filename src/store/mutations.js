@@ -15,5 +15,9 @@ export const mutations = {
 
   [types.SECURE_TOKEN] (state, secureToken) {
     state.secureToken = secureToken
+  },
+
+  [types.IS_ADMIN] (state, isAdmin) {
+    state.isAdmin = isAdmin
   }
 }

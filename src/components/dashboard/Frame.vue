@@ -48,7 +48,7 @@ export default {
       return 'Dashboard'
     },
     isAdmin () {
-      return false
+      return this.$store.state.isAdmin
     }
   }
 }

@@ -9,7 +9,8 @@ const state = {
   username: '',
   email: '',
   isLogged: false,
-  secureToken: ''
+  secureToken: '',
+  isAdmin: false
 }
 
 export default new Vuex.Store({
