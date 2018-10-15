@@ -11,19 +11,20 @@ export default {
   props: ['width', 'height'],
   computed: {
     computedWidth () {
-      if (this.width)
+      if (this.width) {
         return this.width
+      }
       return '200px'
     },
     computedHeight () {
-      if (this.height)
+      if (this.height) {
         return this.height
+      }
       return '200px'
     }
   }
 }
 </script>
-
 
 <style scoped>
 div.center-content {
