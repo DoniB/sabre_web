@@ -22,7 +22,7 @@
                         <span class="md-list-item-text">Minhas Receitas</span>
                     </md-list-item>
 
-                    <md-list-item to="/" v-if="isAdmin">
+                    <md-list-item :to="{name: 'dashboardRecipesWaitingActivation'}" v-if="isAdmin">
                         <md-icon>rounded_corner</md-icon>
                         <span class="md-list-item-text">Receitas Para Liberar</span>
                     </md-list-item>
