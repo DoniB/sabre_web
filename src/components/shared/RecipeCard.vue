@@ -12,6 +12,8 @@
             <md-card-actions md-alignment="space-between">
                 <div>
                     <md-button>Receita</md-button>
+                    <md-button v-if="showAdminEdit"
+                        :to="{ name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id} }">Editar</md-button>
                 </div>
 
                 <md-card-expand-trigger @click="showRecipe = !showRecipe">
@@ -30,7 +32,16 @@
 
 <script>
 export default {
-  props: [ 'recipe' ],
+  props: {
+    recipe: {
+      type: Object,
+      required: true
+    },
+    showAdminEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
     ingredients () {
       let htmlItens = ''

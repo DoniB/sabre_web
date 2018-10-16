@@ -6,6 +6,7 @@ import PageSendRecipe from '@/components/PageSendRecipe'
 import PageNotFound from '@/components/PageNotFound'
 import DashboardIndex from '@/components/dashboard/Index.vue'
 import DashboardRecipesWaitingActivation from '@/components/dashboard/RecipesWaitingActivation.vue'
+import DashboardRecipesWaitingActivationEdit from '@/components/dashboard/RecipesWaitingActivationEdit.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,12 @@ export default new Router({
       path: '/usuario/receitas-para-liberar',
       name: 'dashboardRecipesWaitingActivation',
       component: DashboardRecipesWaitingActivation,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/usuario/receitas-para-liberar/:id',
+      name: 'DashboardRecipesWaitingActivationEdit',
+      component: DashboardRecipesWaitingActivationEdit,
       meta: { requiresAuth: true }
     },
     {

@@ -17,6 +17,7 @@ import {
   MdCard,
   MdField,
   MdProgress,
+  MdRadio,
   MdSnackbar,
   MdMenu,
   MdList } from 'vue-material/dist/components'
@@ -37,6 +38,7 @@ Vue.use(MdMenu)
 Vue.use(MdList)
 Vue.use(MdApp)
 Vue.use(MdDrawer)
+Vue.use(MdRadio)
 
 Vue.config.productionTip = false
 
