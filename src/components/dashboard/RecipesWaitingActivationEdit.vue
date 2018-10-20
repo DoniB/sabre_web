@@ -109,8 +109,10 @@ export default {
     centerContent: CenterContent
   },
   created () {
+    let token = this.$cookie.get('SecureToken')
     axios
-      .get('https://sabre-api.herokuapp.com/api/v1/users/recipe/' + this.$route.params.id)
+      .get('https://sabre-api.herokuapp.com/api/v1/users/recipe/' + this.$route.params.id, {
+        headers: { 'X-Secure-Token': token } })
       .then((response) => {
         this.form = response.data
         this.loading = false
