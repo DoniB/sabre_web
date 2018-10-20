@@ -1,9 +1,7 @@
 <template>
   <div>
-    <center-content v-if="loading">
-      <md-progress-spinner :md-diameter="200" :md-stroke="10" md-mode="indeterminate"></md-progress-spinner>
-    </center-content>
-    <div>
+    <loading v-if="isLoading"></loading>
+    <div v-else>
       <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></recipe-card>
     </div>
   </div>
@@ -11,7 +9,7 @@
 
 <script>
 import RecipeCard from '@/components/shared/RecipeCard.vue'
-import CenterContent from '@/components/shared/CenterContent.vue'
+import Loading from '@/components/shared/Loading.vue'
 const axios = require('axios')
 
 export default {
@@ -19,20 +17,19 @@ export default {
   data () {
     return {
       recipes: [],
-      loading: true
+      isLoading: true
     }
   },
   components: {
     recipeCard: RecipeCard,
-    centerContent: CenterContent
+    loading: Loading
   },
   created () {
     axios
       .get('https://sabre-api.herokuapp.com/api/v1/recipes')
       .then((response) => {
         this.recipes = response.data
-        this.loading = false
-        console.log(response)
+        this.isLoading = false
       })
       .catch((error) => { console.log(error) })
   }

@@ -1,9 +1,7 @@
 <template>
   <dashboard-frame :title="title">
     <div>
-      <center-content v-if="loading">
-        <md-progress-spinner :md-diameter="200" :md-stroke="10" md-mode="indeterminate"></md-progress-spinner>
-      </center-content>
+      <loading v-if="loading"></loading>
       <recipe-card v-else :showAdminEdit="true" v-for="recipe in recipes" :key="'recipe' + recipe.id" :recipe="recipe"></recipe-card>
     </div>
   </dashboard-frame>
@@ -13,6 +11,7 @@
 import Frame from './Frame.vue'
 import RecipeCard from '@/components/shared/RecipeCard.vue'
 import CenterContent from '@/components/shared/CenterContent.vue'
+import Loading from '@/components/shared/Loading.vue'
 const axios = require('axios')
 
 export default {
@@ -26,7 +25,8 @@ export default {
   components: {
     dashboardFrame: Frame,
     recipeCard: RecipeCard,
-    centerContent: CenterContent
+    centerContent: CenterContent,
+    Loading
   },
   created () {
     let token = this.$cookie.get('SecureToken')
