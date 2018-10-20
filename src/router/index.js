@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PageIndex from '@/components/PageIndex'
+import PageIndex from '@/components/home/Index'
 import PageSign from '@/components/PageSign'
 import PageSendRecipe from '@/components/PageSendRecipe'
 import PageNotFound from '@/components/PageNotFound'
