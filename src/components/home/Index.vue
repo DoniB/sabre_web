@@ -4,6 +4,9 @@
     <div v-else>
       <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></recipe-card>
     </div>
+    <div v-if="hasMore">
+      <p style="text-align: center"><md-button class="md-accent" :disabled="isLoadingMore" @click="loadRecipes">Mais Receitas <md-icon>expand_more</md-icon></md-button></p>
+    </div>
   </div>
 </template>
 
@@ -17,21 +20,40 @@ export default {
   data () {
     return {
       recipes: [],
-      isLoading: true
+      isLoading: true,
+      isLoadingMore: false,
+      hasMore: false,
+      page: 0
     }
   },
   components: {
     recipeCard: RecipeCard,
     loading: Loading
   },
-  created () {
-    axios
-      .get('https://sabre-api.herokuapp.com/api/v1/recipes')
-      .then((response) => {
-        this.recipes = response.data
-        this.isLoading = false
+  methods: {
+    setRecipes (response) {
+      response.data.forEach(element => {
+        this.recipes.push(element)
       })
-      .catch((error) => { console.log(error) })
+      this.isLoading = false
+      this.isLoadingMore = false
+      this.hasMore = response.data.length === 20
+      this.page++
+    },
+    loadRecipes () {
+      this.isLoadingMore = true
+      axios
+        .get('https://sabre-api.herokuapp.com/api/v1/recipes', {
+          params: {
+            page: this.page
+          }
+        })
+        .then(this.setRecipes)
+        .catch((error) => { console.log(error) })
+    }
+  },
+  created () {
+    this.loadRecipes()
   }
 }
 </script>
