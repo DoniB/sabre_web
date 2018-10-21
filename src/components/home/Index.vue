@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading v-if="isLoading"></loading>
-    <div v-else>
+    <div v-else class="md-layout md-alignment-top-center">
       <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></recipe-card>
     </div>
     <div v-if="hasMore">
