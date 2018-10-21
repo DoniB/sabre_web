@@ -11,7 +11,7 @@
         <md-card-expand>
             <md-card-actions md-alignment="space-between">
                 <div>
-                    <md-button>Receita</md-button>
+                    <md-button :to="{ name: 'recipe.show', params: { id: recipe.id, friendlyUrl: friendlyUrl } }">Receita</md-button>
                     <md-button v-if="showAdminEdit"
                         :to="{ name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id} }">Editar</md-button>
                 </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { toFriendlyUrl } from '@/app_library/url.js'
+
 export default {
   props: {
     recipe: {
@@ -49,6 +51,9 @@ export default {
         htmlItens += `<p>${element}</p>`
       })
       return htmlItens
+    },
+    friendlyUrl () {
+      return toFriendlyUrl(this.recipe.name)
     }
   }
 }

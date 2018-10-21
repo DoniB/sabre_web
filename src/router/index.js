@@ -8,6 +8,8 @@ import DashboardIndex from '@/components/dashboard/Index.vue'
 import DashboardRecipesWaitingActivation from '@/components/dashboard/RecipesWaitingActivation.vue'
 import DashboardRecipesWaitingActivationEdit from '@/components/dashboard/RecipesWaitingActivationEdit.vue'
 
+const RecipeShow = () => import('@/components/recipe/Show.vue')
+
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +48,11 @@ export default new Router({
       name: 'DashboardRecipesWaitingActivationEdit',
       component: DashboardRecipesWaitingActivationEdit,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/receita/:id/:friendlyUrl',
+      name: 'recipe.show',
+      component: RecipeShow
     },
     {
       path: '*', component: PageNotFound
