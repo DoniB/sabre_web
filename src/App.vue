@@ -9,7 +9,7 @@
       <div id="search">
         <md-field>
           <label>Nome ou ingrediente</label>
-          <md-input @keypress.enter="search" placeholder="Procurar receitas" class="md-default"></md-input>
+          <md-input v-model="query" @keypress.enter="search" placeholder="Procurar receitas" class="md-default"></md-input>
           <md-button @click="search" class="md-icon-button"><md-icon>search</md-icon></md-button>
         </md-field>
       </div>
@@ -59,6 +59,11 @@ router.beforeEach((to, from, next) => {
 
 export default {
   name: 'App',
+  data () {
+    return {
+      query: ''
+    }
+  },
   methods: {
     ...mapActions(['unloadUser', 'loadUser']),
     logOut () {
@@ -84,7 +89,12 @@ export default {
       }
     },
     search () {
-      console.log('search clicked')
+      router.push({
+        name: 'index',
+        query: {
+          q: this.query
+        }
+      })
     }
   },
   created () {
@@ -99,10 +109,18 @@ export default {
     } else {
       console.log('no secure token')
     }
+    this.query = this.$route.query.q
   },
   computed: {
     firstname () {
       return this.$store.state.username.split(' ')[0]
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      if (to.query.q !== from.query.q) {
+        this.query = this.$route.query.q
+      }
     }
   }
 }

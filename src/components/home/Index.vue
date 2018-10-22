@@ -42,11 +42,18 @@ export default {
     },
     loadRecipes () {
       this.isLoadingMore = true
+
+      let params = {
+        page: this.page
+      }
+
+      if (this.$route.query.q) {
+        params['q'] = this.$route.query.q
+      }
+
       axios
         .get('https://sabre-api.herokuapp.com/api/v1/recipes', {
-          params: {
-            page: this.page
-          }
+          params: params
         })
         .then(this.setRecipes)
         .catch((error) => { console.log(error) })
@@ -54,6 +61,14 @@ export default {
   },
   created () {
     this.loadRecipes()
+  },
+  watch: {
+    '$route' (to, from) {
+      this.isLoading = true
+      this.recipes = []
+      this.page = 0
+      this.loadRecipes({ q: to.query.q })
+    }
   }
 }
 </script>
