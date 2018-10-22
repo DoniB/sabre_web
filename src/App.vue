@@ -2,8 +2,17 @@
   <div id="app" class="page-container">
 
     <md-toolbar class="md-medium">
-      <router-link to="/"><h3 class="md-title">SABRE</h3></router-link>
-      <md-button to="/"><md-icon>home</md-icon> Inicio</md-button>
+      <div class="md-toolbar-section-start">
+        <router-link to="/"><h3 class="md-title">SABRE</h3></router-link>
+        <md-button to="/"><md-icon>home</md-icon> Inicio</md-button>
+      </div>
+      <div id="search">
+        <md-field>
+          <label>Nome ou ingrediente</label>
+          <md-input @keypress.enter="search" placeholder="Procurar receitas" class="md-default"></md-input>
+          <md-button @click="search" class="md-icon-button"><md-icon>search</md-icon></md-button>
+        </md-field>
+      </div>
       <div class="md-toolbar-section-end">
         <md-button class="md-default" to="/usuario/enviar-receita"><md-icon>restaurant_menu</md-icon> Enviar Receita </md-button>
         <md-menu md-align-trigger v-if="$store.state.isLogged">
@@ -73,6 +82,9 @@ export default {
           router.push('/')
         }
       }
+    },
+    search () {
+      console.log('search clicked')
     }
   },
   created () {
@@ -99,5 +111,10 @@ export default {
 <style scoped>
   .router-body {
     margin-top: 5px;
+  }
+
+  #search {
+    max-width: 500px;
+    min-width: 300px;
   }
 </style>
