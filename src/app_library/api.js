@@ -14,6 +14,14 @@ const API = {
           .catch(err => {
             if (error) error(err)
           })
+      },
+      index (recipe, success, error) {
+        axios
+          .get(BASE_URL + '/recipes/' + recipe + '/comments')
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
       }
     }
   }

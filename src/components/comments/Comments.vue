@@ -16,16 +16,15 @@
           <md-button @click="sendComment" :disabled="disableSend">Comentar</md-button>
         </div>
       </div>
-      <div v-else>
-        <md-card-header class="md-primary">
-          <p><span class="mutted">Você comentou:</span> {{ text }}</p>
-        </md-card-header>
-      </div>
+      <md-divider></md-divider>
+      <comment v-for="c in comments" :comment="c" :key="'com' + c.id"></comment>
     </md-card-content>
   </md-card>
 </template>
 
 <script>
+import Comment from './Comment.vue'
+
 export default {
   props: ['recipeId'],
   data () {
@@ -33,7 +32,8 @@ export default {
       text: '',
       sendClicked: false,
       disableSend: false,
-      notCommented: true
+      notCommented: true,
+      comments: []
     }
   },
   methods: {
@@ -49,7 +49,8 @@ export default {
     commentCreated (response) {
       this.notCommented = false
       this.text = response.data.text
-      console.log('created', response)
+      this.comments.push(response.data)
+      window.scrollTo(0, document.body.scrollHeight)
     },
     commentErrorCreating (response) {
       this.disableSend = false
@@ -58,11 +59,16 @@ export default {
   },
   computed: {
     invalidMessage () {
-      return this.sendClicked && (!this.text || this.text.size > 10)
+      return this.sendClicked && this.text.length < 10
     }
   },
   created () {
-    console.log(this.recipeId)
+    this.api.recipes.comments.index(this.recipeId, response => {
+      this.comments = response.data
+    })
+  },
+  components: {
+    Comment
   }
 }
 </script>
