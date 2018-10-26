@@ -42,6 +42,9 @@
             <br>
           </div>
         </md-card-content>
+        <md-card-content>
+          <comments :recipeId="recipe.id"></comments>
+        </md-card-content>
       </md-card>
     </div>
   </div>
@@ -49,6 +52,7 @@
 
 <script>
 import Loading from '@/components/shared/Loading.vue'
+import Comments from '@/components/comments/Comments.vue'
 const axios = require('axios')
 
 export default {
@@ -71,7 +75,8 @@ export default {
       .catch((error) => { console.log(error) })
   },
   components: {
-    Loading
+    Loading,
+    Comments
   }
 }
 </script>

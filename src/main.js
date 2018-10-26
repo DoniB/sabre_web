@@ -1,10 +1,12 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import VueCookie from 'vue-cookie'
+import VueMaterial from 'vue-material'
 import App from './App'
 import router from './router'
 import store from './store'
-import VueCookie from 'vue-cookie'
+import api from './app_library/api.js'
 
 import {
   MdApp,
@@ -20,9 +22,13 @@ import {
   MdRadio,
   MdSnackbar,
   MdMenu,
-  MdList } from 'vue-material/dist/components'
+  MdList,
+  MdDivider } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+// import 'vue-material/dist/theme/default-dark.css'
+// import 'vue-material/dist/theme/black-green-dark.css'
+// import 'vue-material/dist/theme/black-green-light.css'
 
 Vue.use(MdButton)
 Vue.use(MdContent)
@@ -39,6 +45,10 @@ Vue.use(MdList)
 Vue.use(MdApp)
 Vue.use(MdDrawer)
 Vue.use(MdRadio)
+Vue.use(MdDivider)
+Vue.use(VueMaterial)
+
+Vue.mixin(api)
 
 Vue.config.productionTip = false
 
