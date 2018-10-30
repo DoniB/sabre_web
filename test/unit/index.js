@@ -13,7 +13,8 @@ import { MdButton,
   MdProgress,
   MdSnackbar,
   MdMenu,
-  MdList } from 'vue-material/dist/components'
+  MdList,
+  MdDivider } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -29,6 +30,7 @@ Vue.use(MdSnackbar)
 Vue.use(VueCookie)
 Vue.use(MdMenu)
 Vue.use(MdList)
+Vue.use(MdDivider)
 Vue.use(store)
 Vue.use(router)
 
