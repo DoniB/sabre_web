@@ -42,7 +42,7 @@ export default {
       if (this.invalidMessage) return
       this.disableSend = true
       const token = this.$cookie.get('SecureToken')
-      this.api.recipes.comments.create(
+      this.remote.recipes.comments.create(
         token, this.recipeId, this.text, this.commentCreated, this.commentErrorCreating
       )
     },
@@ -63,7 +63,7 @@ export default {
     }
   },
   created () {
-    this.api.recipes.comments.index(this.recipeId, response => {
+    this.remote.recipes.comments.index(this.recipeId, response => {
       this.comments = response.data
     })
   },

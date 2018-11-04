@@ -6,7 +6,7 @@ describe('@/components/comments/Comments.vue', done => {
 
   const mixin = {
     computed: {
-      api () {
+      remote () {
         return {
           recipes: {
             comments: {

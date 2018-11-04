@@ -29,7 +29,7 @@ const API = {
 
 const mixin = {
   computed: {
-    api () {
+    remote () {
       return API
     }
   }
