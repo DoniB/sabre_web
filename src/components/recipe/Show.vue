@@ -13,7 +13,7 @@
         </md-card-header>
 
         <md-card-actions>
-          <!-- reserved -->
+          <rating :recipeId="recipe.id"></rating>
         </md-card-actions>
 
         <md-card-content id="recipe-content">
@@ -53,6 +53,7 @@
 <script>
 import Loading from '@/components/shared/Loading.vue'
 import Comments from '@/components/comments/Comments.vue'
+import Rating from '@/components/shared/Rating.vue'
 const axios = require('axios')
 
 export default {
@@ -76,7 +77,8 @@ export default {
   },
   components: {
     Loading,
-    Comments
+    Comments,
+    Rating
   }
 }
 </script>

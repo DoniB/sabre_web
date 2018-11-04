@@ -23,6 +23,27 @@ const API = {
             if (error) error(err)
           })
       }
+    },
+    rating: {
+      show (recipe, token, success, error) {
+        axios
+          .get(BASE_URL + '/recipes/' + recipe + '/rating',
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
+      create (recipe, stars, token, success, error) {
+        axios
+          .post(BASE_URL + '/recipes/' + recipe + '/rating',
+            { stars: stars },
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      }
     }
   }
 }
