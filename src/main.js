@@ -7,6 +7,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import api from './app_library/api.js'
+import auth from './app_library/auth'
 
 import {
   MdApp,
@@ -49,6 +50,7 @@ Vue.use(MdDivider)
 Vue.use(VueMaterial)
 
 Vue.mixin(api)
+Vue.mixin(auth)
 
 Vue.config.productionTip = false
 

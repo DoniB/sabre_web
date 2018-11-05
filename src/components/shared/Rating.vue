@@ -39,9 +39,6 @@ export default {
         })
       }
     },
-    isAuth () {
-      return !!this.$cookie.get('SecureToken')
-    },
     loadUserRating (response) {
       if (response.data) {
         this.stars = response.data.stars

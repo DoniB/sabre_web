@@ -8,7 +8,7 @@
         <br>
         <md-field :class="{'md-invalid': invalidMessage}">
           <label>Seu comentário</label>
-          <md-textarea v-model="text" required md-autogrow></md-textarea>
+          <md-textarea @focus="canComment" v-model="text" required md-autogrow></md-textarea>
           <span class="md-helper-text">Deixe sua opinião sobre esta receita</span>
           <span class="md-error">A mensagem deve ter no mínimo 10 caracteres</span>
         </md-field>
@@ -24,6 +24,7 @@
 
 <script>
 import Comment from './Comment.vue'
+import router from '@/router'
 
 export default {
   props: ['recipeId'],
@@ -55,6 +56,14 @@ export default {
     commentErrorCreating (response) {
       this.disableSend = false
       console.log('error', response)
+    },
+    canComment () {
+      if (!this.isAuth()) {
+        router.push({
+          path: '/sign',
+          query: { redirect: router.currentRoute.fullPath }
+        })
+      }
     }
   },
   computed: {
