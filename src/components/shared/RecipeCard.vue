@@ -6,6 +6,16 @@
         <md-card-header>
             <div class="md-title">{{ recipe.name }}</div>
             <div class="md-subhead">{{ recipe.owner }}</div>
+            <div class="md-layout md-alignment-top-right">
+                <star-rating
+                    :rating="recipe.average_stars"
+                    :star-size="20"
+                    rounded-corners
+                    :show-rating="false"
+                    :padding="1"
+                    read-only>
+                </star-rating>
+            </div>
         </md-card-header>
 
         <md-card-expand>
@@ -32,6 +42,7 @@
 
 <script>
 import { toFriendlyUrl } from '@/app_library/url.js'
+import StarRating from 'vue-star-rating'
 
 export default {
   props: {
@@ -55,6 +66,9 @@ export default {
     friendlyUrl () {
       return toFriendlyUrl(this.recipe.name)
     }
+  },
+  components: {
+    StarRating
   }
 }
 </script>
