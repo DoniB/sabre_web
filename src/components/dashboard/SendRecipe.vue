@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <dashboard title="Enviar receita">
         <md-card v-if="showRecipeCreated" class="md-layout-item md-size-50 md-small-size-90 center-vertically center-horizontally">
           <md-card-header>
             <div class="md-title center-align">
@@ -9,7 +9,7 @@
           </md-card-header>
         </md-card>
         <form v-else novalidate class="md-layout" @submit.prevent>
-            <md-card class="md-layout-item md-size-50 md-small-size-90 sign-card">
+            <md-card class="md-layout-item md-size-80 md-small-size-90 md-xlarge-size-60 sign-card">
                 <md-card-header>
                   <div class="md-title">Cadastro de Receitas</div>
                 </md-card-header>
@@ -42,12 +42,13 @@
             </md-snackbar>
 
         </form>
-    </div>
+    </dashboard>
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
+import Frame from './Frame'
 import router from '@/router'
 
 const axios = require('axios')
@@ -108,6 +109,9 @@ export default {
       }
     }
   },
+  components: {
+    dashboard: Frame
+  },
   validations: {
     form: {
       name: {
@@ -130,21 +134,5 @@ export default {
   }
   #text-directions {
     height: 300px;
-  }
-
-  .center-align {
-    text-align: center;
-  }
-
-  .center-vertically {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .center-horizontally {
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
   }
 </style>

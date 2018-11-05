@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Comments from '@/components/comments/Comments.vue'
 
-describe('@/components/comments/Comments.vue', done => {
+describe('@/components/comments/Comments.vue', () => {
   it('need to be finished')
 
   const mixin = {
@@ -20,7 +20,7 @@ describe('@/components/comments/Comments.vue', done => {
     }
   }
 
-  it('should render correct contents', () => {
+  it('should render correct contents', (done) => {
     const Constructor = Vue.extend(Comments)
     const vm = new Constructor({propsData: {
       recipeId: 6 },
@@ -35,7 +35,7 @@ describe('@/components/comments/Comments.vue', done => {
     })
 
     vm.comments.push({
-      id: 1,
+      id: 2,
       text: 'i like it',
       username: 'Alan Kay'
     })
