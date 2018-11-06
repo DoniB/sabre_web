@@ -16,7 +16,7 @@ import router from '@/router'
 
 export default {
   props:
-    ['recipeId'],
+    ['recipeId', 'averageStars'],
   data () {
     return {
       stars: 0
@@ -49,6 +49,7 @@ export default {
     }
   },
   created () {
+    this.stars = this.averageStars
     if (this.isAuth()) {
       this.remote.recipes.rating.show(
         this.recipeId,

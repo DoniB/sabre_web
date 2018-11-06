@@ -13,7 +13,7 @@
         </md-card-header>
 
         <md-card-actions>
-          <rating :recipeId="recipe.id"></rating>
+          <rating :recipeId="recipe.id" :averageStars="recipe.average_stars"></rating>
         </md-card-actions>
 
         <md-card-content id="recipe-content">
