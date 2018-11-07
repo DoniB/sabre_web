@@ -25,7 +25,7 @@
         <md-button v-else class="md-default" to="/sign"><md-icon>perm_identity</md-icon> Entrar</md-button>
       </div>
     </md-toolbar>
-    <md-toolbar class="md-primary md-medium">
+    <md-toolbar class="md-primary md-medium" v-if="showCategoryBar">
       <categories></categories>
     </md-toolbar>
 
@@ -65,7 +65,8 @@ export default {
   name: 'App',
   data () {
     return {
-      query: ''
+      query: '',
+      showCategoryBar: 'true'
     }
   },
   methods: {
@@ -128,6 +129,8 @@ export default {
       if (to.query.q !== from.query.q) {
         this.query = this.$route.query.q
       }
+
+      this.showCategoryBar = !to.meta.requiresAuth
     }
   }
 }
