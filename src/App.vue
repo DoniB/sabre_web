@@ -25,6 +25,9 @@
         <md-button v-else class="md-default" to="/sign"><md-icon>perm_identity</md-icon> Entrar</md-button>
       </div>
     </md-toolbar>
+    <md-toolbar class="md-primary md-medium">
+      <categories></categories>
+    </md-toolbar>
 
     <!-- <router-link to="/sign">Entrar</router-link> -->
     <div class="md-layout router-body">
@@ -40,6 +43,7 @@
 import { mapActions } from 'vuex'
 import router from '@/router'
 import store from './store'
+import Categories from '@/components/header/Categories.vue'
 const axios = require('axios')
 
 router.beforeEach((to, from, next) => {
@@ -115,6 +119,9 @@ export default {
     firstname () {
       return this.$store.state.username.split(' ')[0]
     }
+  },
+  components: {
+    Categories
   },
   watch: {
     '$route' (to, from) {
