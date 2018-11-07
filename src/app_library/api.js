@@ -3,6 +3,20 @@ import axios from 'axios'
 const BASE_URL = 'https://sabre-api.herokuapp.com/api/v1'
 
 const API = {
+  users: {
+    recipe: {
+      create (token, recipe, success, error) {
+        axios
+          .post(BASE_URL + '/users/recipe',
+            recipe,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      }
+    }
+  },
   recipes: {
     comments: {
       create (token, recipe, text, success, error) {
@@ -44,6 +58,16 @@ const API = {
             if (error) error(err)
           })
       }
+    }
+  },
+  categories: {
+    index (success, error) {
+      axios
+        .get(BASE_URL + '/categories')
+        .then(response => (success(response)))
+        .catch(err => {
+          if (error) error(err)
+        })
     }
   }
 }

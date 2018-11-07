@@ -19,6 +19,16 @@
                         <md-input v-model="form.name" required :disabled="sending"></md-input>
                         <span class="md-error" v-if="!$v.form.name.required">É necessário informar o nome da receita</span>
                     </md-field>
+                    <md-field  :class="getValidationClass('category_id')">
+                      <md-select v-model="form.category_id" name="category" id="category" placeholder="Categoria">
+                        <md-option
+                          v-for="category in categories"
+                          :key="'cat' + category.id"
+                          :value="category.id">
+                          {{ category.name }}</md-option>
+                      </md-select>
+                      <span class="md-error" v-if="!$v.form.category_id.required">Ops, está faltando a categoria</span>
+                    </md-field>
                     <md-field :class="getValidationClass('ingredients')">
                         <label>Ingredientes</label>
                         <md-textarea v-model="form.ingredients" id="text-ingredients" required :disabled="sending"></md-textarea>
@@ -49,9 +59,6 @@
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import Frame from './Frame'
-import router from '@/router'
-
-const axios = require('axios')
 
 export default {
   name: 'sendRecipe',
@@ -61,10 +68,12 @@ export default {
       showSnackbar: false,
       sending: false,
       showRecipeCreated: false,
+      categories: {},
       form: {
         name: '',
         ingredients: '',
-        directions: ''
+        directions: '',
+        category_id: null
       }
     }
   },
@@ -79,22 +88,12 @@ export default {
     },
     createRecipe () {
       let token = this.$cookie.get('SecureToken')
-      axios
-        .post('https://sabre-api.herokuapp.com/api/v1/users/recipe', {
-          name: this.form.name,
-          ingredients: this.form.ingredients,
-          directions: this.form.directions
-        }, { headers: { 'X-Secure-Token': token } })
-        .then(response => (this.recipeCreated(response)))
-        .catch(this.requestError)
+      this.remote.users.recipe.create(
+        token, this.form, this.recipeCreated, this.requestError
+      )
     },
     recipeCreated (response) {
       this.showRecipeCreated = true
-      console.log(response.data)
-
-      setTimeout(function () {
-        router.push('/')
-      }, 5000)
     },
     requestError () {
       this.sending = false
@@ -107,6 +106,9 @@ export default {
           'md-invalid': field.$invalid && field.$dirty
         }
       }
+    },
+    loadCategories (response) {
+      this.categories = response.data
     }
   },
   components: {
@@ -122,8 +124,17 @@ export default {
       },
       directions: {
         required
+      },
+      category_id: {
+        required
       }
     }
+  },
+  created () {
+    this.remote.categories.index(
+      this.loadCategories,
+      (res) => console.log('error loading categories', res)
+    )
   }
 }
 </script>
