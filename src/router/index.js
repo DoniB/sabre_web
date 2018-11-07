@@ -55,6 +55,11 @@ export default new Router({
       component: RecipeShow
     },
     {
+      path: '/categoria/:id/:friendlyUrl',
+      name: 'category',
+      component: PageIndex
+    },
+    {
       path: '*', component: PageNotFound
     }
   ]
