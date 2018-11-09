@@ -26,25 +26,25 @@ export default new Router({
       component: PageSign
     },
     {
-      path: '/usuario/enviar-receita',
+      path: '/painel/enviar-receita',
       name: 'sendRecipe',
       component: PageSendRecipe,
       meta: { requiresAuth: true }
     },
     {
-      path: '/usuario',
+      path: '/painel',
       name: 'dashboardIndex',
       component: DashboardIndex,
       meta: { requiresAuth: true }
     },
     {
-      path: '/usuario/receitas-para-liberar',
+      path: '/painel/receitas-para-liberar',
       name: 'dashboardRecipesWaitingActivation',
       component: DashboardRecipesWaitingActivation,
       meta: { requiresAuth: true }
     },
     {
-      path: '/usuario/receitas-para-liberar/:id',
+      path: '/painel/receitas-para-liberar/:id',
       name: 'DashboardRecipesWaitingActivationEdit',
       component: DashboardRecipesWaitingActivationEdit,
       meta: { requiresAuth: true }

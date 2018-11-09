@@ -14,11 +14,11 @@
         </md-field>
       </div>
       <div class="md-toolbar-section-end">
-        <md-button class="md-default" to="/usuario/enviar-receita"><md-icon>restaurant_menu</md-icon> Enviar Receita </md-button>
+        <md-button class="md-default" to="/painel/enviar-receita"><md-icon>restaurant_menu</md-icon> Enviar Receita </md-button>
         <md-menu md-align-trigger v-if="$store.state.isLogged">
           <md-button class="md-default" md-menu-trigger><md-icon>perm_identity</md-icon> {{ firstname }}</md-button>
           <md-menu-content>
-            <md-menu-item  to="/usuario" class="menu-link">Minha Conta</md-menu-item>
+            <md-menu-item  to="/painel" class="menu-link">Minha Conta</md-menu-item>
             <md-menu-item  @click="logOut">Sair</md-menu-item>
           </md-menu-content>
         </md-menu>
