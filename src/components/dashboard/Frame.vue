@@ -7,7 +7,7 @@
             <md-app-drawer md-permanent="card">
                 <md-list>
 
-                    <md-list-item to="/">
+                    <md-list-item :to="{name: 'dashboardIndex'}">
                         <md-icon>note</md-icon>
                         <span class="md-list-item-text">Inicio</span>
                     </md-list-item>
@@ -17,14 +17,19 @@
                         <span class="md-list-item-text">Favoritos</span>
                     </md-list-item>
 
-                    <md-list-item to="/">
+                    <md-list-item :to="{name: 'dashboardRecipesWaitingActivation'}" v-if="isAdmin">
+                        <md-icon>receipt</md-icon>
+                        <span class="md-list-item-text">Receitas</span>
+                    </md-list-item>
+
+                    <md-list-item to="/" v-else>
                         <md-icon>receipt</md-icon>
                         <span class="md-list-item-text">Minhas Receitas</span>
                     </md-list-item>
 
-                    <md-list-item :to="{name: 'dashboardRecipesWaitingActivation'}" v-if="isAdmin">
-                        <md-icon>rounded_corner</md-icon>
-                        <span class="md-list-item-text">Receitas Para Liberar</span>
+                    <md-list-item :to="{name: 'dashboard.users'}" v-if="isAdmin">
+                        <md-icon>people</md-icon>
+                        <span class="md-list-item-text">Usuários</span>
                     </md-list-item>
 
                 </md-list>

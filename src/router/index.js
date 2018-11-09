@@ -9,6 +9,7 @@ import DashboardRecipesWaitingActivation from '@/components/dashboard/RecipesWai
 import DashboardRecipesWaitingActivationEdit from '@/components/dashboard/RecipesWaitingActivationEdit.vue'
 
 const RecipeShow = () => import('@/components/recipe/Show.vue')
+const DashboardUsers = () => import('@/components/dashboard/users/Users.vue')
 
 Vue.use(Router)
 
@@ -58,6 +59,12 @@ export default new Router({
       path: '/categoria/:id/:friendlyUrl',
       name: 'category',
       component: PageIndex
+    },
+    {
+      path: '/dashboard/users',
+      name: 'dashboard.users',
+      component: DashboardUsers,
+      meta: { requiresAuth: true }
     },
     {
       path: '*', component: PageNotFound
