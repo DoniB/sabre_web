@@ -18,6 +18,16 @@ const API = {
     }
   },
   recipes: {
+    index (params, success, error) {
+      axios
+        .get(BASE_URL + '/recipes', {
+          params: params
+        })
+        .then(success)
+        .catch(err => {
+          if (error) error(err)
+        })
+    },
     comments: {
       create (token, recipe, text, success, error) {
         axios

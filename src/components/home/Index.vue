@@ -13,7 +13,6 @@
 <script>
 import RecipeCard from '@/components/shared/RecipeCard.vue'
 import Loading from '@/components/shared/Loading.vue'
-const axios = require('axios')
 
 export default {
   name: 'index',
@@ -51,12 +50,15 @@ export default {
         params['q'] = this.$route.query.q
       }
 
-      axios
-        .get('https://sabre-api.herokuapp.com/api/v1/recipes', {
-          params: params
-        })
-        .then(this.setRecipes)
-        .catch((error) => { console.log(error) })
+      if (this.$route.params.id) {
+        params['category'] = this.$route.params.id
+      }
+
+      this.remote.recipes.index(
+        params,
+        this.setRecipes,
+        (error) => { console.log(error) }
+      )
     }
   },
   created () {
