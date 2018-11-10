@@ -15,7 +15,7 @@
         <md-table-cell md-label="Atualizado">{{ item.updated_at | toLocalTime }}</md-table-cell>
         <md-table-cell md-label="Administrador">{{ item.is_admin ? 'Sim' : 'Não' }}</md-table-cell>
         <md-table-cell>
-          <md-icon>description</md-icon>
+          <router-link :to="{name: 'dashboard.users.edit', params: {id: item.id}}"><md-icon>description</md-icon></router-link>
           <md-icon>pageview</md-icon>
           <md-icon>highlight_off</md-icon>
         </md-table-cell>

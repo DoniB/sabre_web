@@ -10,6 +10,7 @@ import DashboardRecipesWaitingActivationEdit from '@/components/dashboard/Recipe
 
 const RecipeShow = () => import('@/components/recipe/Show.vue')
 const DashboardUsers = () => import('@/components/dashboard/users/Users.vue')
+const DashboardUsersEdit = () => import('@/components/dashboard/users/Edit.vue')
 
 Vue.use(Router)
 
@@ -61,9 +62,15 @@ export default new Router({
       component: PageIndex
     },
     {
-      path: '/dashboard/users',
+      path: '/painel/users',
       name: 'dashboard.users',
       component: DashboardUsers,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/painel/users/:id/edit',
+      name: 'dashboard.users.edit',
+      component: DashboardUsersEdit,
       meta: { requiresAuth: true }
     },
     {
