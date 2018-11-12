@@ -20,6 +20,7 @@
             <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id}}" class="edit-user-link">
               <md-icon>edit</md-icon>
             </router-link>
+            <div class="md-subhead recipe-date">{{ recipe.created_at | timePassed }}</div>
             </div>
         </md-card-header>
 
@@ -65,9 +66,13 @@
 import Loading from '@/components/shared/Loading.vue'
 import Comments from '@/components/comments/Comments.vue'
 import Rating from '@/components/shared/Rating.vue'
+import DateMixin from '@/app_library/date.js'
 const axios = require('axios')
 
 export default {
+  mixins: [
+    DateMixin
+  ],
   data () {
     return {
       recipe: {},
@@ -102,5 +107,9 @@ export default {
 <style scoped>
 .edit-user-link .md-icon {
   font-size: 1.2em !important;
+}
+
+.recipe-date {
+    text-align: right;
 }
 </style>

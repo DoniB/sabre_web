@@ -9,6 +9,7 @@
         <md-card-header>
             <div class="md-title">{{ recipe.name }}</div>
             <div class="md-subhead">{{ recipe.owner }}</div>
+            <div class="md-subhead recipe-date">{{ recipe.created_at | timePassed }}</div>
             <div class="md-layout md-alignment-top-right">
                 <star-rating
                     :rating="recipe.average_stars"
@@ -46,8 +47,12 @@
 <script>
 import { toFriendlyUrl } from '@/app_library/url.js'
 import StarRating from 'vue-star-rating'
+import DateMixin from '@/app_library/date.js'
 
 export default {
+  mixins: [
+    DateMixin
+  ],
   props: {
     recipe: {
       type: Object,
@@ -82,5 +87,9 @@ export default {
     margin: 4px;
     display: inline-block;
     vertical-align: top;
+}
+
+.recipe-date {
+    text-align: right;
 }
 </style>
