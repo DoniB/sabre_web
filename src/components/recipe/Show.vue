@@ -5,8 +5,11 @@
       <md-card style="max-width: 680px;">
         <md-card-media>
           <img src="/static/img/demo.jpg" alt="Demo">
-          <md-button v-if="isAdmin" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id}}" class="md-fab md-fab-top-right">
+          <md-button v-if="isAdmin" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id}}" class="md-fab md-fab-top-left">
             <md-icon>edit</md-icon>
+          </md-button>
+          <md-button class="md-fab md-fab-top-right md-mini md-accent">
+            <md-icon>favorite_border</md-icon>
           </md-button>
         </md-card-media>
 

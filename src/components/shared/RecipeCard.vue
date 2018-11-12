@@ -1,5 +1,8 @@
 <template>
     <md-card>
+        <md-button class="md-fab md-fab-top-right md-mini md-accent">
+            <md-icon>favorite_border</md-icon>
+        </md-button>
         <md-card-media>
             <img src="/static/img/demo.jpg" alt="Demo">
         </md-card-media>
