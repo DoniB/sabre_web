@@ -14,6 +14,10 @@
                   <div class="md-title">Cadastro de Receitas</div>
                 </md-card-header>
                 <md-card-content>
+                    <md-field>
+                      <label>Imagem</label>
+                      <md-file placeholder="Opcional" :disabled="sending"/>
+                    </md-field>
                     <md-field :class="getValidationClass('name')">
                         <label>Nome da receita</label>
                         <md-input v-model="form.name" required :disabled="sending"></md-input>
