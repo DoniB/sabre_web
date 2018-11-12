@@ -12,7 +12,12 @@
 
         <md-card-header>
           <div class="md-title">{{ recipe.name }}</div>
-          <div class="md-subhead">{{ recipe.owner }}</div>
+          <div class="md-subhead">
+            {{ recipe.owner }}
+            <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id}}" class="edit-user-link">
+              <md-icon>edit</md-icon>
+            </router-link>
+            </div>
         </md-card-header>
 
         <md-card-actions>
@@ -90,3 +95,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.edit-user-link .md-icon {
+  font-size: 1.2em !important;
+}
+</style>
