@@ -5,7 +5,12 @@
         <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="edit-user-link">
           <md-icon>edit</md-icon>
         </router-link>
-      </span> {{ comment.text }}</span></p>
+      </span>
+        {{ comment.text }}
+        <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="delete-comment-link">
+          <md-icon>delete</md-icon>
+        </router-link>
+      </span></p>
   </div>
 </template>
 
@@ -37,12 +42,12 @@ export default {
   font-style: italic;
 }
 
-a.edit-user-link .md-icon {
+a.edit-user-link .md-icon, a.delete-comment-link .md-icon {
   font-size: 1.2em !important;
   color: #8f8f8f !important;
 }
 
-a.edit-user-link:hover {
+a.edit-user-link:hover, a.delete-comment-link:hover {
   text-decoration: none;
 }
 
