@@ -5,6 +5,9 @@
       <md-card style="max-width: 680px;">
         <md-card-media>
           <img src="/static/img/demo.jpg" alt="Demo">
+          <md-button v-if="isAdmin" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id}}" class="md-fab md-fab-top-right">
+            <md-icon>edit</md-icon>
+          </md-button>
         </md-card-media>
 
         <md-card-header>
@@ -61,6 +64,11 @@ export default {
     return {
       recipe: {},
       isLoading: true
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.$store.state.isAdmin
     }
   },
   methods: {
