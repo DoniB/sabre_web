@@ -1,12 +1,22 @@
 <template>
   <div class="comment">
-    <p><span class="comment-text"><span class="mutted">{{ comment.username || 'Usuário' }}</span> {{ comment.text }}</span></p>
+    <p><span class="comment-text">
+      <span class="mutted">{{ comment.username || 'Usuário' }}
+        <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="edit-user-link">
+          <md-icon>edit</md-icon>
+        </router-link>
+      </span> {{ comment.text }}</span></p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['comment']
+  props: ['comment'],
+  computed: {
+    isAdmin () {
+      return this.$store.state.isAdmin
+    }
+  }
 }
 </script>
 
@@ -26,4 +36,14 @@ export default {
   color: #8f8f8f;
   font-style: italic;
 }
+
+a.edit-user-link .md-icon {
+  font-size: 1.2em !important;
+  color: #8f8f8f !important;
+}
+
+a.edit-user-link:hover {
+  text-decoration: none;
+}
+
 </style>
