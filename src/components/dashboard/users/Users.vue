@@ -22,6 +22,11 @@
       </md-table-row>
 
     </md-table>
+    <div class="add-user">
+      <md-button :to="{name: 'dashboard.users.new'}" class="md-fab md-primary">
+          <md-icon>add</md-icon>
+      </md-button>
+    </div>
   </dashboard>
 </template>
 
@@ -62,3 +67,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.add-user {
+  text-align: right;
+}
+</style>

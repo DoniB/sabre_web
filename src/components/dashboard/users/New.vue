@@ -3,7 +3,7 @@
     <form novalidate class="md-layout" @submit.prevent>
       <md-card class="md-layout-item md-size-70 md-small-size-100 md-size-large-50">
         <md-card-header>
-          <h2 class="md-card-title">Editar</h2>
+          <h2 class="md-card-title">Novo</h2>
         </md-card-header>
 
         <md-card-content>
@@ -54,11 +54,9 @@ export default {
       sending: false,
       user: {
         id: 1,
-        username: 'Una Altenwerth',
-        email: 'jewel@bauch.name',
-        created_at: '2018-10-20 17:35:56 UTC',
-        updated_at: '2018-10-20 17:35:56 UTC',
-        is_admin: true
+        username: '',
+        email: '',
+        is_admin: false
       }
     }
   },
