@@ -4,7 +4,7 @@ const dateMixin = {
       const inputDate = new Date(input)
       const today = new Date()
       const timeDiff = Math.abs(today.getTime() - inputDate.getTime())
-      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+      const diffDays = Math.round(timeDiff / (1000 * 3600 * 24))
       if (diffDays === 0) {
         return 'hoje'
       }
@@ -17,7 +17,7 @@ const dateMixin = {
         return diffDays + ' dias'
       }
 
-      const diffMonths = Math.floor(diffDays / 30)
+      const diffMonths = Math.round(diffDays / 30)
 
       if (diffMonths === 1) {
         return '1 mês'
