@@ -7,6 +7,7 @@
         </router-link>
       </span>
         {{ comment.text }}
+        <span class="mutted comment-time">{{ comment.created_at | timePassed }}</span>
         <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="delete-comment-link">
           <md-icon>delete</md-icon>
         </router-link>
@@ -15,7 +16,12 @@
 </template>
 
 <script>
+import DateMixin from '@/app_library/date.js'
+
 export default {
+  mixins: [
+    DateMixin
+  ],
   props: ['comment'],
   computed: {
     isAdmin () {
@@ -35,6 +41,10 @@ export default {
   background-color: white;
   padding: 10px;
   border-radius: 15px;
+}
+
+.comment-time {
+  font-size: .8em;
 }
 
 .mutted {
