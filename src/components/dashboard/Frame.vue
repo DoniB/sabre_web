@@ -22,7 +22,7 @@
                         <span class="md-list-item-text">Receitas</span>
                     </md-list-item>
 
-                    <md-list-item to="/" v-else>
+                    <md-list-item :to="{name: 'dashboardRecipesWaitingActivation'}" v-else>
                         <md-icon>receipt</md-icon>
                         <span class="md-list-item-text">Minhas Receitas</span>
                     </md-list-item>

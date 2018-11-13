@@ -4,7 +4,8 @@
 
       <md-table-toolbar>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Procurar por nome" v-model="search" @keypress.enter="searchByName" />
+          <md-input placeholder="Procurar por nome" v-model="search" @keypress.enter="searchByName"></md-input>
+          <md-button class="md-icon-button"><md-icon>search</md-icon></md-button>
         </md-field>
       </md-table-toolbar>
 

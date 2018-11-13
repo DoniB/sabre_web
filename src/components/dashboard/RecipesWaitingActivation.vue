@@ -3,11 +3,19 @@
     <div>
       <loading v-if="loading"></loading>
       <div v-else>
-        <div class="md-layout">
+        <div class="md-layout" v-if="isAdmin">
           <div class="md-size-80 recipe-filter">
             <md-radio v-model="recipesFilter" value="all">Todas As Receitas</md-radio>
             <md-radio v-model="recipesFilter" value="waiting_activation">Receitas Para Aprovar</md-radio>
             <md-radio v-model="recipesFilter" value="my">Minhas Receitas</md-radio>
+          </div>
+        </div>
+        <div class="md-layout">
+          <div class="md-layout-item md-size-80 recipe-filter">
+            <md-field>
+              <md-input placeholder="Procurar por nome"></md-input>
+              <md-button class="md-icon-button"><md-icon>search</md-icon></md-button>
+            </md-field>
           </div>
         </div>
         <recipe-card :showAdminEdit="true" v-for="recipe in recipes" :key="'recipe' + recipe.id" :recipe="recipe"></recipe-card>
@@ -44,9 +52,14 @@ export default {
     Loading
   },
   created () {
-    let token = this.$cookie.get('SecureToken')
+    const token = this.$cookie.get('SecureToken')
+    let extra = ''
+    if (this.isAdmin) {
+      extra += '?status=waiting_activation'
+    }
+
     axios
-      .get('https://sabre-api.herokuapp.com/api/v1/users/recipe?status=waiting_activation', {
+      .get(`https://sabre-api.herokuapp.com/api/v1/users/recipe${extra}`, {
         headers: { 'X-Secure-Token': token }
       })
       .then((response) => {
