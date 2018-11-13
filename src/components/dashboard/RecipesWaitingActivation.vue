@@ -2,7 +2,16 @@
   <dashboard-frame :title="title">
     <div>
       <loading v-if="loading"></loading>
-      <recipe-card v-else :showAdminEdit="true" v-for="recipe in recipes" :key="'recipe' + recipe.id" :recipe="recipe"></recipe-card>
+      <div v-else>
+        <div class="md-layout">
+          <div class="md-size-80 recipe-filter">
+            <md-radio v-model="recipesFilter" value="all">Todas As Receitas</md-radio>
+            <md-radio v-model="recipesFilter" value="waiting_activation">Receitas Para Aprovar</md-radio>
+            <md-radio v-model="recipesFilter" value="my">Minhas Receitas</md-radio>
+          </div>
+        </div>
+        <recipe-card :showAdminEdit="true" v-for="recipe in recipes" :key="'recipe' + recipe.id" :recipe="recipe"></recipe-card>
+      </div>
     </div>
   </dashboard-frame>
 </template>
@@ -19,7 +28,13 @@ export default {
     return {
       title: 'Receitas Para Liberar',
       loading: true,
-      recipes: []
+      recipes: [],
+      recipesFilter: 'waiting_activation'
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.$store.state.isAdmin
     }
   },
   components: {
@@ -42,3 +57,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+div.recipe-filter {
+  padding: 15px;
+}
+
+div.recipe-filter .md-radio {
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  border-radius: 15px;
+}
+</style>
