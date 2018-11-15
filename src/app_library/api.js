@@ -79,6 +79,20 @@ const API = {
           if (error) error(err)
         })
     }
+  },
+  adm: {
+    users: {
+      index (token, query, success, error) {
+        const qParams = query ? `?q={query}` : ''
+        axios
+          .get(BASE_URL + '/adm/users' + qParams,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      }
+    }
   }
 }
 

@@ -12,6 +12,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID" md-numeric>{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Nome">{{ item.username }}</md-table-cell>
+        <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Cadastrado">{{ item.created_at | toLocalTime }}</md-table-cell>
         <md-table-cell md-label="Atualizado">{{ item.updated_at | toLocalTime }}</md-table-cell>
         <md-table-cell md-label="Administrador">{{ item.is_admin ? 'Sim' : 'Não' }}</md-table-cell>
@@ -36,25 +37,28 @@ import Dashboard from '@/components/dashboard/Frame.vue'
 export default {
   data () {
     return {
-      users: [
-        {id: 1, username: 'Una Altenwerth', email: 'jewel@bauch.name', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 2, username: 'Willow Hyatt', email: 'capricecasper@wilkinson.biz', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 3, username: 'Glennie Zulauf', email: 'martinsimonis@schaden.biz', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 4, username: 'Brett Larkin', email: 'shauna@jaskolski.co', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 5, username: 'Morton Lesch', email: 'chantaycremin@wuckert.co', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 6, username: 'Vivan Yundt', email: 'kacy@nitzscheconn.io', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 7, username: 'Tera Ernser', email: 'eleni@douglas.biz', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 8, username: 'Caterina Reichel', email: 'graigrobel@daniel.info', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 9, username: 'Marylynn Legros', email: 'demarcus@reichertbarrows.name', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false},
-        {id: 10, username: 'Jermaine Murray', email: 'liberty@hayes.net', created_at: '2018-10-20 17:35:56 UTC', updated_at: '2018-10-20 17:35:56 UTC', is_admin: false}
-      ],
+      users: [],
       title: 'Usuários',
-      search: ''
+      search: '',
+      currentPage: 0,
+      pages: 0
     }
   },
   methods: {
     searchByName () {
       console.log(this.search)
+    },
+    loadUsers () {
+      console.log('loadUsers')
+      this.remote.adm.users.index(
+        this.$cookie.get('SecureToken'),
+        this.search,
+        this.usersLoaded
+      )
+    },
+    usersLoaded (response) {
+      this.pages = response.data.page.total
+      this.users = response.data.users
     }
   },
   filters: {
@@ -65,6 +69,9 @@ export default {
   },
   components: {
     Dashboard
+  },
+  created () {
+    this.loadUsers()
   }
 }
 </script>
