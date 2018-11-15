@@ -91,6 +91,34 @@ const API = {
           .catch(err => {
             if (error) error(err)
           })
+      },
+      show (token, id, success, error) {
+        axios
+          .get(BASE_URL + '/adm/users/' + id,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
+      update (token, user, success, error) {
+        const userParams = { username: user.username,
+          email: user.email,
+          is_admin: user.is_admin
+        }
+
+        if (user.password) {
+          userParams['password'] = user.password
+        }
+
+        axios
+          .patch(BASE_URL + '/adm/users/' + user.id,
+            userParams,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
       }
     }
   }
