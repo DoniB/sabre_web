@@ -119,6 +119,16 @@ const API = {
           .catch(err => {
             if (error) error(err)
           })
+      },
+      create (token, user, success, error) {
+        axios
+          .post(BASE_URL + '/adm/users',
+            user,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) { error(err.response) }
+          })
       }
     }
   }
