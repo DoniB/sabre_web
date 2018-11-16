@@ -83,7 +83,7 @@ const API = {
   adm: {
     users: {
       index (token, query, success, error) {
-        const qParams = query ? `?q={query}` : ''
+        const qParams = query ? `?q=${query}` : ''
         axios
           .get(BASE_URL + '/adm/users' + qParams,
             { headers: { 'X-Secure-Token': token } })

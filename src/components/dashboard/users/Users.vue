@@ -3,10 +3,10 @@
     <md-table v-model="users" md-card md-fixed-header>
 
       <md-table-toolbar>
-        <md-field md-clearable class="md-toolbar-section-end">
+        <md-field md-clearable class="md-toolbar-section-start">
           <md-input placeholder="Procurar por nome" v-model="search" @keypress.enter="searchByName"></md-input>
-          <md-button class="md-icon-button"><md-icon>search</md-icon></md-button>
         </md-field>
+        <md-button @input="searchByName" class="md-icon-button"><md-icon>search</md-icon></md-button>
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     searchByName () {
-      console.log(this.search)
+      this.loadUsers()
     },
     loadUsers () {
       console.log('loadUsers')
@@ -59,6 +59,7 @@ export default {
     usersLoaded (response) {
       this.pages = response.data.page.total
       this.users = response.data.users
+      console.log(response)
     }
   },
   filters: {
