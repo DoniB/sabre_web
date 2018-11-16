@@ -1,6 +1,6 @@
 <template>
   <dashboard :title="title">
-    <md-table v-model="users" md-card md-fixed-header>
+    <md-table v-model="users" md-card>
 
       <md-table-toolbar>
         <md-field md-clearable class="md-toolbar-section-start">
@@ -24,6 +24,7 @@
       </md-table-row>
 
     </md-table>
+    <paginate class="md-layout-item" @change="updatePage" :currentPage="currentPage" :totalPages="pages"></paginate>
     <div class="add-user">
       <md-button :to="{name: 'dashboard.users.new'}" class="md-fab md-primary">
           <md-icon>add</md-icon>
@@ -34,6 +35,8 @@
 
 <script>
 import Dashboard from '@/components/dashboard/Frame.vue'
+import Paginate from '@/components/shared/Paginate.vue'
+
 export default {
   data () {
     return {
@@ -49,9 +52,9 @@ export default {
       this.loadUsers()
     },
     loadUsers () {
-      console.log('loadUsers')
       this.remote.adm.users.index(
         this.$cookie.get('SecureToken'),
+        this.currentPage,
         this.search,
         this.usersLoaded
       )
@@ -60,6 +63,10 @@ export default {
       this.pages = response.data.page.total
       this.users = response.data.users
       console.log(response)
+    },
+    updatePage (page) {
+      this.currentPage = page
+      this.loadUsers()
     }
   },
   filters: {
@@ -69,7 +76,8 @@ export default {
     }
   },
   components: {
-    Dashboard
+    Dashboard,
+    Paginate
   },
   created () {
     this.loadUsers()
