@@ -15,8 +15,8 @@
                 </md-card-header>
                 <md-card-content>
                     <md-field>
-                      <label>Imagem</label>
-                      <md-file placeholder="Opcional" :disabled="sending"/>
+                      <label>Foto</label>
+                      <md-file placeholder="Foto (opcional)" :disabled="sending"/>
                     </md-field>
                     <md-field :class="getValidationClass('name')">
                         <label>Nome da receita</label>

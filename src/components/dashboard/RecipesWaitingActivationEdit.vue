@@ -6,6 +6,10 @@
                   <div class="md-title">{{ title }}</div>
                 </md-card-header>
                 <md-card-content>
+                    <md-field>
+                      <label>Foto</label>
+                      <md-file placeholder="Foto (opcional)" :disabled="sending"/>
+                    </md-field>
                     <md-field :class="getValidationClass('name')">
                         <label>Nome da receita</label>
                         <md-input v-model="form.name" required :disabled="sending || loading"></md-input>

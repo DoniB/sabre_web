@@ -8,8 +8,14 @@
       </div>
       <div id="search">
         <md-field>
-          <label>Nome ou ingrediente</label>
-          <md-input v-model="query" @keypress.enter="search" placeholder="Procurar receitas" class="md-default"></md-input>
+          <label>Separe ingredientes com virgula</label>
+          <md-input
+            v-model="query"
+            @keypress.enter="search"
+            @input="findComma"
+            placeholder="Procurar receitas"
+            class="md-default"></md-input>
+          <md-checkbox v-model="recipesOnly" v-if="showRecipesOnly">Só com estes ingredientes</md-checkbox>
           <md-button @click="search" class="md-icon-button"><md-icon>search</md-icon></md-button>
         </md-field>
       </div>
@@ -66,7 +72,9 @@ export default {
   data () {
     return {
       query: '',
-      showCategoryBar: 'true'
+      showCategoryBar: 'true',
+      recipesOnly: false,
+      showRecipesOnly: false
     }
   },
   methods: {
@@ -100,6 +108,9 @@ export default {
           q: this.query
         }
       })
+    },
+    findComma (v) {
+      this.showRecipesOnly = v.indexOf(',') >= 0
     }
   },
   created () {
@@ -142,7 +153,10 @@ export default {
   }
 
   #search {
-    max-width: 500px;
-    min-width: 300px;
+    width: 500px;
+  }
+
+  #search input {
+    height: 52px;
   }
 </style>

@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .md-card {
-    width: 340px;
+    width: 360px;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
