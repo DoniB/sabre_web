@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Frame from './Frame.vue'
+import Frame from '@/components/dashboard/Frame.vue'
 import CenterContent from '@/components/shared/CenterContent.vue'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'

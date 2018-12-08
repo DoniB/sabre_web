@@ -25,9 +25,9 @@
         <md-card-expand>
             <md-card-actions md-alignment="space-between">
                 <div>
-                    <md-button :to="{ name: 'recipe.show', params: { id: recipe.id, friendlyUrl: friendlyUrl } }">Receita</md-button>
+                    <md-button v-if="recipe.status === 1" :to="{ name: 'recipe.show', params: { id: recipe.id, friendlyUrl: friendlyUrl } }">Receita</md-button>
                     <md-button v-if="showAdminEdit"
-                        :to="{ name: 'DashboardRecipesWaitingActivationEdit', params: {id: recipe.id} }">Editar</md-button>
+                        :to="{ name: 'dashboard.recipes.edit', params: {id: recipe.id} }">Editar</md-button>
                 </div>
 
                 <md-card-expand-trigger @click="showRecipe = !showRecipe">

@@ -5,8 +5,8 @@ import PageSign from '@/components/PageSign'
 import PageSendRecipe from '@/components/dashboard/SendRecipe'
 import PageNotFound from '@/components/PageNotFound'
 import DashboardIndex from '@/components/dashboard/Index.vue'
-import DashboardRecipesWaitingActivation from '@/components/dashboard/RecipesWaitingActivation.vue'
-import DashboardRecipesWaitingActivationEdit from '@/components/dashboard/RecipesWaitingActivationEdit.vue'
+import DashboardRecipes from '@/components/dashboard/recipes/Recipes.vue'
+import DashboardRecipesEdit from '@/components/dashboard/recipes/Edit.vue'
 
 const RecipeShow = () => import('@/components/recipe/Show.vue')
 const DashboardUsers = () => import('@/components/dashboard/users/Users.vue')
@@ -41,15 +41,15 @@ export default new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/painel/receitas-para-liberar',
-      name: 'dashboardRecipesWaitingActivation',
-      component: DashboardRecipesWaitingActivation,
+      path: '/painel/receitas',
+      name: 'dashboard.recipes',
+      component: DashboardRecipes,
       meta: { requiresAuth: true }
     },
     {
-      path: '/painel/receitas-para-liberar/:id',
-      name: 'DashboardRecipesWaitingActivationEdit',
-      component: DashboardRecipesWaitingActivationEdit,
+      path: '/painel/receitas/:id',
+      name: 'dashboard.recipes.edit',
+      component: DashboardRecipesEdit,
       meta: { requiresAuth: true }
     },
     {

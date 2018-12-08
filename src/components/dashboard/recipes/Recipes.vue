@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Frame from './Frame.vue'
+import Frame from '@/components/dashboard/Frame.vue'
 import RecipeCard from '@/components/shared/RecipeCard.vue'
 import CenterContent from '@/components/shared/CenterContent.vue'
 import Loading from '@/components/shared/Loading.vue'
@@ -34,7 +34,7 @@ const axios = require('axios')
 export default {
   data () {
     return {
-      title: 'Receitas Para Liberar',
+      title: 'Receitas',
       loading: true,
       recipes: [],
       recipesFilter: 'waiting_activation'
