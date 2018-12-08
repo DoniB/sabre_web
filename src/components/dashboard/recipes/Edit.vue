@@ -52,13 +52,12 @@ import CenterContent from '@/components/shared/CenterContent.vue'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import router from '@/router'
-const axios = require('axios')
 
 export default {
   mixins: [validationMixin],
   data () {
     return {
-      title: 'Receitas Para Liberar',
+      title: 'Receita',
       loading: true,
       sending: false,
       showSnackbar: false,
@@ -84,23 +83,22 @@ export default {
       }
     },
     updateRecipe () {
-      let token = this.$cookie.get('SecureToken')
-      axios
-        .patch('https://sabre-api.herokuapp.com/api/v1/users/recipe/' + this.$route.params.id, {
-          name: this.form.name,
-          ingredients: this.form.ingredients,
-          directions: this.form.directions,
-          status: this.form.status
-        }, { headers: { 'X-Secure-Token': token } })
-        .then(response => (this.recipeUpdated(response)))
-        .catch(this.requestError)
+      const token = this.$cookie.get('SecureToken')
+      this.remote.users.recipe.update(
+        token,
+        this.form,
+        this.recipeUpdated,
+        this.requestError
+      )
     },
     recipeUpdated (response) {
       this.snackMessage = 'Receita atualizada.'
       this.showSnackbar = true
       console.log(response.data)
       setTimeout(function () {
-        router.push('/usuario/receitas-para-liberar/')
+        router.push({
+          name: 'dashboard.recipes'
+        })
       }, 5000)
     },
     requestError () {
@@ -113,15 +111,17 @@ export default {
     centerContent: CenterContent
   },
   created () {
-    let token = this.$cookie.get('SecureToken')
-    axios
-      .get('https://sabre-api.herokuapp.com/api/v1/users/recipe/' + this.$route.params.id, {
-        headers: { 'X-Secure-Token': token } })
-      .then((response) => {
+    const token = this.$cookie.get('SecureToken')
+    this.remote.users.recipe.show(
+      token,
+      this.$route.params.id,
+      (response) => {
         this.form = response.data
         this.loading = false
-      })
-      .catch((error) => { console.log(error) })
+        this.title = `Receita #${this.$route.params.id} - ${this.form.name}`
+      },
+      (error) => console.log(error)
+    )
   },
   validations: {
     form: {
@@ -138,3 +138,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #text-ingredients {
+    height: 300px;
+  }
+  #text-directions {
+    height: 300px;
+  }
+</style>

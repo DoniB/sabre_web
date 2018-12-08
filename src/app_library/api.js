@@ -5,12 +5,38 @@ const BASE_URL = 'https://sabre-api.herokuapp.com/api/v1'
 const API = {
   users: {
     recipe: {
+      show (token, recipeId, success, error) {
+        axios
+          .get(`${BASE_URL}/users/recipe/${recipeId}`, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(success)
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
       create (token, recipe, success, error) {
         axios
           .post(BASE_URL + '/users/recipe',
             recipe,
             { headers: { 'X-Secure-Token': token } })
           .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
+      update (token, recipe, success, error) {
+        const formData = {
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          directions: recipe.directions,
+          status: recipe.status
+        }
+        axios
+          .patch(`${BASE_URL}/users/recipe/${recipe.id}`,
+            formData,
+            { headers: { 'X-Secure-Token': token } })
+          .then(success)
           .catch(err => {
             if (error) error(err)
           })
