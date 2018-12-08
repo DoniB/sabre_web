@@ -14,6 +14,17 @@ const API = {
           .catch(err => {
             if (error) error(err)
           })
+      },
+      index (token, params, success, error) {
+        axios
+          .get(BASE_URL + '/users/recipe', {
+            params: params,
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(success)
+          .catch(err => {
+            if (error) error(err)
+          })
       }
     }
   },

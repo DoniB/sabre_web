@@ -13,8 +13,8 @@
         <div class="md-layout">
           <div class="md-layout-item md-size-80 recipe-filter">
             <md-field>
-              <md-input placeholder="Procurar por nome"></md-input>
-              <md-button class="md-icon-button"><md-icon>search</md-icon></md-button>
+              <md-input @keypress.enter="loadRecipes" v-model="searchQuery" placeholder="Procurar por nome"></md-input>
+              <md-button @click="loadRecipes" class="md-icon-button"><md-icon>search</md-icon></md-button>
             </md-field>
           </div>
         </div>
@@ -29,7 +29,6 @@ import Frame from '@/components/dashboard/Frame.vue'
 import RecipeCard from '@/components/shared/RecipeCard.vue'
 import CenterContent from '@/components/shared/CenterContent.vue'
 import Loading from '@/components/shared/Loading.vue'
-const axios = require('axios')
 
 export default {
   data () {
@@ -37,12 +36,43 @@ export default {
       title: 'Receitas',
       loading: true,
       recipes: [],
-      recipesFilter: 'waiting_activation'
+      recipesFilter: 'my',
+      disableFilterWatch: true,
+      searchQuery: ''
     }
   },
   computed: {
     isAdmin () {
       return this.$store.state.isAdmin
+    }
+  },
+  methods: {
+    loadRecipes () {
+      this.loading = true
+
+      const params = {}
+      switch (this.recipesFilter) {
+        case 'waiting_activation':
+          params.status = 'waiting_activation'
+        // eslint-disable-next-line
+        case 'all':
+          params.all_users = 1
+      }
+      if (this.searchQuery) {
+        params.q = this.searchQuery
+      }
+
+      const token = this.$cookie.get('SecureToken')
+      this.remote.users.recipe.index(
+        token,
+        params,
+        this.recipesLoaded,
+        (error) => console.log(error)
+      )
+    },
+    recipesLoaded (response) {
+      this.recipes = response.data
+      this.loading = false
     }
   },
   components: {
@@ -52,21 +82,17 @@ export default {
     Loading
   },
   created () {
-    const token = this.$cookie.get('SecureToken')
-    let extra = ''
     if (this.isAdmin) {
-      extra += '?status=waiting_activation'
+      this.recipesFilter = 'waiting_activation'
+      this.disableFilterWatch = false
     }
-
-    axios
-      .get(`https://sabre-api.herokuapp.com/api/v1/users/recipe${extra}`, {
-        headers: { 'X-Secure-Token': token }
-      })
-      .then((response) => {
-        this.recipes = response.data
-        this.loading = false
-      })
-      .catch((error) => { console.log(error) })
+    this.loadRecipes()
+  },
+  watch: {
+    recipesFilter () {
+      if (this.disableFilterWatch) return
+      this.loadRecipes()
+    }
   }
 }
 </script>
