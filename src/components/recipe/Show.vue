@@ -17,7 +17,7 @@
           <div class="md-title">{{ recipe.name }}</div>
           <div class="md-subhead">
             {{ recipe.owner }}
-            <router-link v-if="isAdmin" tag="a" :to="{name: 'dashboard.recipes.edit', params: {id: recipe.id}}" class="edit-user-link">
+            <router-link v-if="isAdmin" tag="a" :to="{name: 'dashboard.users.edit', params: {id: recipe.user_id}}" class="edit-user-link">
               <md-icon>edit</md-icon>
             </router-link>
             <div class="md-subhead recipe-date">{{ recipe.created_at | timePassed }}</div>
@@ -88,6 +88,7 @@ export default {
     setRecipe (response) {
       this.recipe = response.data
       this.isLoading = false
+      console.log(this.recipe)
     }
   },
   created () {

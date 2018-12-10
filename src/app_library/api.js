@@ -144,13 +144,15 @@ const API = {
           })
       },
       update (token, user, success, error) {
-        const userParams = { username: user.username,
+        const userParams = {
+          username: user.username,
           email: user.email,
-          is_admin: user.is_admin
+          is_admin: user.is_admin,
+          active: user.active
         }
 
         if (user.password) {
-          userParams['password'] = user.password
+          userParams.password = user.password
         }
 
         axios

@@ -28,10 +28,18 @@
           </div>
           <div class="md-layout-item md-size-100">
             <br>
-            <label for="password">Administrador?</label>
+            <label>Administrador?</label>
             <div>
               <md-radio v-model="user.is_admin" :value="false">Não</md-radio>
               <md-radio v-model="user.is_admin" :value="true">Sim</md-radio>
+            </div>
+          </div>
+          <div class="md-layout-item md-size-100">
+            <br>
+            <label>Ativo?</label>
+            <div>
+              <md-radio v-model="user.active" :value="false">Não</md-radio>
+              <md-radio v-model="user.active" :value="true">Sim</md-radio>
             </div>
           </div>
         </div>
@@ -72,7 +80,8 @@ export default {
         username: '',
         email: '',
         password: '',
-        is_admin: false
+        is_admin: false,
+        active: true
       }
     }
   },
