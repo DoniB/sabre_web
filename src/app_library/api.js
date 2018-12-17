@@ -83,6 +83,15 @@ const API = {
           .catch(err => {
             if (error) error(err)
           })
+      },
+      delete (token, comment, success, error) {
+        axios
+          .delete(BASE_URL + '/recipes/' + comment.recipe_id + '/comments/' + comment.id,
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
       }
     },
     rating: {

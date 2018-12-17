@@ -2,15 +2,15 @@
   <div class="comment">
     <p><span class="comment-text">
       <span class="mutted">{{ comment.username || 'Usuário' }}
-        <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="edit-user-link">
+        <router-link v-if="isAdmin" tag="a" :to="{name: 'dashboard.users.edit', params: {id: comment.user_id}}" class="edit-user-link">
           <md-icon>edit</md-icon>
         </router-link>
       </span>
         {{ comment.text }}
         <span class="mutted comment-time">{{ comment.created_at | timePassed }}</span>
-        <router-link v-if="isAdmin" tag="a" :to="{name: 'DashboardRecipesWaitingActivationEdit', params: {id: 1}}" class="delete-comment-link">
+        <a v-if="isAdmin" href="#end-comments" @click.prevent="destroy" class="delete-comment-link">
           <md-icon>delete</md-icon>
-        </router-link>
+        </a>
       </span></p>
   </div>
 </template>
@@ -23,6 +23,20 @@ export default {
     DateMixin
   ],
   props: ['comment'],
+  methods: {
+    destroy () {
+      console.log(this.remote.recipes.comments.delete(
+        this.$store.state.secureToken,
+        this.comment,
+        response => {
+          this.$emit('commentDeleted', this.comment)
+        },
+        error => {
+          console.log(error)
+        }
+      ))
+    }
+  },
   computed: {
     isAdmin () {
       return this.$store.state.isAdmin

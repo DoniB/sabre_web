@@ -17,8 +17,9 @@
         </div>
       </div>
       <md-divider></md-divider>
-      <comment v-for="c in comments" :comment="c" :key="'com' + c.id"></comment>
+      <comment @commentDeleted="removeComment" v-for="c in comments" :comment="c" :key="'com' + c.id"></comment>
     </md-card-content>
+    <div id="end-comments"></div>
   </md-card>
 </template>
 
@@ -63,6 +64,14 @@ export default {
           path: '/sign',
           query: { redirect: router.currentRoute.fullPath }
         })
+      }
+    },
+    removeComment (comment) {
+      for (let i = 0; i < this.comments.length; i++) {
+        if (this.comments[i] === comment) {
+          this.comments.splice(i, 1)
+          return
+        }
       }
     }
   },
