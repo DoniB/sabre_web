@@ -114,6 +114,35 @@ const API = {
             if (error) error(err)
           })
       }
+    },
+    favorite: {
+      create (recipe, token, success, error) {
+        axios
+          .post(BASE_URL + '/recipes/' + recipe + '/favorite', {},
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
+      show (recipe, token, success, error) {
+        axios
+          .get(BASE_URL + '/recipes/' + recipe + '/favorite',
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      },
+      delete (recipe, token, success, error) {
+        axios
+          .delete(BASE_URL + '/recipes/' + recipe + '/favorite',
+            { headers: { 'X-Secure-Token': token } })
+          .then(response => (success(response)))
+          .catch(err => {
+            if (error) error(err)
+          })
+      }
     }
   },
   categories: {

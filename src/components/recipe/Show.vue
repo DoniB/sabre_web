@@ -8,9 +8,7 @@
           <md-button v-if="isAdmin" :to="{name: 'dashboard.recipes.edit', params: {id: recipe.id}}" class="md-fab md-fab-top-left">
             <md-icon>edit</md-icon>
           </md-button>
-          <md-button class="md-fab md-fab-top-right md-mini md-accent">
-            <md-icon>favorite_border</md-icon>
-          </md-button>
+          <favorite-button :recipeId="recipe.id" class="favorite-button"></favorite-button>
         </md-card-media>
 
         <md-card-header>
@@ -66,6 +64,7 @@
 import Loading from '@/components/shared/Loading.vue'
 import Comments from '@/components/comments/Comments.vue'
 import Rating from '@/components/shared/Rating.vue'
+import FavoriteButton from '@/components/shared/FavoriteButton.vue'
 import DateMixin from '@/app_library/date.js'
 const axios = require('axios')
 
@@ -100,7 +99,8 @@ export default {
   components: {
     Loading,
     Comments,
-    Rating
+    Rating,
+    FavoriteButton
   }
 }
 </script>
@@ -112,5 +112,10 @@ export default {
 
 .recipe-date {
     text-align: right;
+}
+
+.favorite-button {
+    top: 10px;
+    right: 10px;
 }
 </style>

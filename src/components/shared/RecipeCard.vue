@@ -1,8 +1,6 @@
 <template>
     <md-card>
-        <md-button class="md-fab md-fab-top-right md-mini md-accent">
-            <md-icon>favorite_border</md-icon>
-        </md-button>
+        <favorite-button :recipeId="recipe.id" :mdMini="true" class="favorite-button"></favorite-button>
         <md-card-media>
             <img src="/static/img/demo.jpg" alt="Demo">
         </md-card-media>
@@ -47,6 +45,7 @@
 <script>
 import { toFriendlyUrl } from '@/app_library/url.js'
 import StarRating from 'vue-star-rating'
+import FavoriteButton from '@/components/shared/FavoriteButton.vue'
 import DateMixin from '@/app_library/date.js'
 
 export default {
@@ -76,7 +75,8 @@ export default {
     }
   },
   components: {
-    StarRating
+    StarRating,
+    FavoriteButton
   }
 }
 </script>
@@ -92,4 +92,10 @@ export default {
 .recipe-date {
     text-align: right;
 }
+
+.favorite-button {
+    top: 5px;
+    right: 5px;
+}
+
 </style>
