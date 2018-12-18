@@ -11,7 +11,7 @@
                         <span class="md-list-item-text">Inicio</span>
                     </md-list-item>
 
-                    <md-list-item to="/">
+                    <md-list-item :to="{name: 'dashboard.favorites'}">
                         <md-icon>favorite</md-icon>
                         <span class="md-list-item-text">Favoritos</span>
                     </md-list-item>

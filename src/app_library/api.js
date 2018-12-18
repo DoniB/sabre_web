@@ -52,6 +52,18 @@ const API = {
             if (error) error(err)
           })
       }
+    },
+    favorites: {
+      index (token, success, error) {
+        axios
+          .get(BASE_URL + '/users/favorites', {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(success)
+          .catch(err => {
+            if (error) error(err)
+          })
+      }
     }
   },
   recipes: {
