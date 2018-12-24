@@ -32,6 +32,9 @@ const API = {
           directions: recipe.directions,
           status: recipe.status
         }
+        if (recipe.cover) {
+          formData.cover = recipe.cover
+        }
         axios
           .patch(`${BASE_URL}/users/recipe/${recipe.id}`,
             formData,

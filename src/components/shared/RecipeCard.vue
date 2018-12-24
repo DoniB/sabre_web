@@ -74,7 +74,7 @@ export default {
       return toFriendlyUrl(this.recipe.name)
     },
     cover () {
-        return this.recipe.cover || '/static/img/demo.jpg'
+      return this.recipe.cover || '/static/img/demo.jpg'
     }
   },
   components: {

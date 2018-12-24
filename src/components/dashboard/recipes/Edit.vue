@@ -8,7 +8,12 @@
                 <md-card-content>
                     <md-field>
                       <label>Foto</label>
-                      <md-file placeholder="Foto (opcional)" :disabled="sending"/>
+                      <md-file
+                        placeholder="Foto (opcional)"
+                        :disabled="sending"
+                        accept="image/x-png,image/jpeg"
+                        @change="fileChange($event.target)"
+                      />
                     </md-field>
                     <md-field :class="getValidationClass('name')">
                         <label>Nome da receita</label>
@@ -62,7 +67,8 @@ export default {
       sending: false,
       showSnackbar: false,
       snackMessage: '',
-      form: {}
+      form: {},
+      cover: null
     }
   },
   methods: {
@@ -84,9 +90,11 @@ export default {
     },
     updateRecipe () {
       const token = this.$cookie.get('SecureToken')
+      const recipe = {...this.form}
+      recipe.cover = this.cover
       this.remote.users.recipe.update(
         token,
-        this.form,
+        recipe,
         this.recipeUpdated,
         this.requestError
       )
@@ -104,6 +112,21 @@ export default {
     requestError () {
       this.snackMessage = 'Ops, algo deu errado :( Por favor tente novamente mais tarde.'
       this.showSnackbar = true
+    },
+    fileChange (input) {
+      this.sending = true
+      this.getBase64(input.files[0])
+    },
+    getBase64 (file) {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        this.sending = false
+        this.cover = reader.result
+      }
+      reader.onerror = error => {
+        console.log('Error: ', error)
+      }
     }
   },
   components: {
