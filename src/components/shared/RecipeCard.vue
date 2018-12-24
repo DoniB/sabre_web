@@ -2,7 +2,7 @@
     <md-card>
         <favorite-button :recipeId="recipe.id" :mdMini="true" class="favorite-button"></favorite-button>
         <md-card-media>
-            <img src="/static/img/demo.jpg" alt="Demo">
+            <img :src="cover" alt="Receita">
         </md-card-media>
         <md-card-header>
             <div class="md-title">{{ recipe.name }}</div>
@@ -72,6 +72,9 @@ export default {
     },
     friendlyUrl () {
       return toFriendlyUrl(this.recipe.name)
+    },
+    cover () {
+        return this.recipe.cover || '/static/img/demo.jpg'
     }
   },
   components: {
@@ -89,6 +92,10 @@ export default {
     vertical-align: top;
 }
 
+.md-card-media {
+    height: 270px;
+    width: 360px;
+}
 .recipe-date {
     text-align: right;
 }
