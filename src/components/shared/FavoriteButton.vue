@@ -1,5 +1,9 @@
 <template>
-  <md-button @click="setFavorite" class="md-fab md-fab-top-right md-accent" :class="{'md-mini': mdMini}" :disabled="disableButton">
+  <md-button
+    @click="setFavorite"
+    class="md-fab md-fab-top-right md-alpha" :class="{'md-mini': mdMini}"
+    :disabled="disableButton"
+  >
     <md-icon>{{ favorite ? 'favorite' : 'favorite_border' }}</md-icon>
   </md-button>
 </template>
@@ -60,3 +64,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button.md-button.md-fab.md-fab-top-right.md-alpha.favorite-button.md-theme-default {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+}
+.md-button.md-theme-default.md-fab:not([disabled]) .md-icon-font {
+  color: #ff5252;
+}
+</style>

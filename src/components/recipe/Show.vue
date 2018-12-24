@@ -118,7 +118,7 @@ export default {
 }
 
 .favorite-button {
-    top: 10px;
-    right: 10px;
+    top: 10px !important;
+    right: 10px !important;
 }
 </style>
