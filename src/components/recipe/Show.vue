@@ -4,7 +4,7 @@
     <div v-else class="md-layout md-gutter md-alignment-top-center">
       <md-card style="max-width: 680px;">
         <md-card-media>
-          <img src="/static/img/demo.jpg" alt="Demo">
+          <img :src="cover" alt="Foto Receita">
           <md-button v-if="isAdmin" :to="{name: 'dashboard.recipes.edit', params: {id: recipe.id}}" class="md-fab md-fab-top-left">
             <md-icon>edit</md-icon>
           </md-button>
@@ -81,6 +81,9 @@ export default {
   computed: {
     isAdmin () {
       return this.$store.state.isAdmin
+    },
+    cover () {
+      return this.recipe.cover || '/static/img/demo.jpg'
     }
   },
   methods: {
