@@ -16,7 +16,12 @@
                 <md-card-content>
                     <md-field>
                       <label>Foto</label>
-                      <md-file placeholder="Foto (opcional)" :disabled="sending"/>
+                      <md-file
+                        placeholder="Foto (opcional)"
+                        :disabled="sending"
+                        accept="image/x-png,image/jpeg"
+                        @change="fileChange($event.target)"
+                      />
                     </md-field>
                     <md-field :class="getValidationClass('name')">
                         <label>Nome da receita</label>
@@ -77,13 +82,13 @@ export default {
         name: '',
         ingredients: '',
         directions: '',
-        category_id: null
+        category_id: null,
+        cover: null
       }
     }
   },
   methods: {
     validateRecipe () {
-      console.log('todo: validateRecipe')
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.sending = true
@@ -113,6 +118,21 @@ export default {
     },
     loadCategories (response) {
       this.categories = response.data
+    },
+    fileChange (input) {
+      this.sending = true
+      this.getBase64(input.files[0])
+    },
+    getBase64 (file) {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        this.sending = false
+        this.form.cover = reader.result
+      }
+      reader.onerror = error => {
+        console.log('Error: ', error)
+      }
     }
   },
   components: {
