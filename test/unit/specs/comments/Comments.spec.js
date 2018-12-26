@@ -1,24 +1,24 @@
-import Vue from 'vue'
-import Comments from '@/components/comments/Comments.vue'
+// import Vue from 'vue'
+// import Comments from '@/components/comments/Comments.vue'
 
 describe('@/components/comments/Comments.vue', () => {
   it('need to be finished')
 
-  const mixin = {
-    computed: {
-      remote () {
-        return {
-          recipes: {
-            comments: {
-              index () {
-                return []
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  // const mixin = {
+  //   computed: {
+  //     remote () {
+  //       return {
+  //         recipes: {
+  //           comments: {
+  //             index () {
+  //               return []
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   it('should render correct contents') /* , (done) => {
     const Constructor = Vue.extend(Comments)
