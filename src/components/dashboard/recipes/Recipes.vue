@@ -1,7 +1,7 @@
 <template>
   <dashboard-frame :title="title">
     <div>
-      <loading v-if="loading"></loading>
+      <loading v-if="isLoading"></loading>
       <div v-else>
         <div class="md-layout" v-if="isAdmin">
           <div class="md-size-80 recipe-filter">
@@ -18,7 +18,10 @@
             </md-field>
           </div>
         </div>
-        <recipe-card :showAdminEdit="true" v-for="recipe in recipes" :key="'recipe' + recipe.id" :recipe="recipe"></recipe-card>
+        <recipe-card :showAdminEdit="true" v-for="recipe in recipes" :key="'userRecipe' + recipe.id" :recipe="recipe"></recipe-card>
+      </div>
+      <div v-if="hasMore">
+        <p style="text-align: center"><md-button class="md-accent" :disabled="isLoadingMore" @click="loadRecipes">Mais Receitas <md-icon>expand_more</md-icon></md-button></p>
       </div>
     </div>
   </dashboard-frame>
@@ -34,11 +37,14 @@ export default {
   data () {
     return {
       title: 'Receitas',
-      loading: true,
       recipes: [],
       recipesFilter: 'my',
       disableFilterWatch: true,
-      searchQuery: ''
+      searchQuery: '',
+      isLoading: true,
+      isLoadingMore: false,
+      hasMore: false,
+      page: 0
     }
   },
   computed: {
@@ -48,9 +54,11 @@ export default {
   },
   methods: {
     loadRecipes () {
-      this.loading = true
+      this.isLoadingMore = true
 
-      const params = {}
+      const params = {
+        page: this.page
+      }
       switch (this.recipesFilter) {
         case 'waiting_activation':
           params.status = 'waiting_activation'
@@ -71,8 +79,14 @@ export default {
       )
     },
     recipesLoaded (response) {
-      this.recipes = response.data
-      this.loading = false
+      response.data.forEach(element => {
+        this.recipes.push(element)
+      })
+      this.isLoading = false
+      this.isLoadingMore = false
+      this.hasMore = response.data.length === 20
+      this.page++
+      this.disableFilterWatch = false
     }
   },
   components: {
@@ -84,13 +98,15 @@ export default {
   created () {
     if (this.isAdmin) {
       this.recipesFilter = 'waiting_activation'
-      this.disableFilterWatch = false
     }
     this.loadRecipes()
   },
   watch: {
     recipesFilter () {
       if (this.disableFilterWatch) return
+      this.page = 0
+      this.recipes = []
+      this.isLoading = true
       this.loadRecipes()
     }
   }
