@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://travis-ci.org/DoniB/sabre_web.svg?branch=master)](https://travis-ci.org/DoniB/sabre_web)
+
 Repositório oficial SABRE_web.
 
 SABRE é um sistema colaborativo de receitas em desenvolvimento como Trabalho de Conclusão de Curso na Universidade Tecnológica Federal do Paraná - UTFPR.
