@@ -3,15 +3,16 @@ env:
     - DISPLAY=:99.0
 addons:
   firefox: latest
+  chrome: stable
   apt:
     packages:
       - chromium-browser
 before_script:
   - sh -e /etc/init.d/xvfb start
+  - sleep 3
 dist: trusty
 language: node_js
 node_js:
   - "9.8.0"
 install:
   - npm install
-  
