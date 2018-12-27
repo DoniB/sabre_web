@@ -19,5 +19,4 @@ install:
   - npm install
 after_script:
   - "./cc-test-reporter format-coverage test/unit/coverage/lcov.info --input-type lcov"
-  - "export CC_TEST_REPORTER_ID=$CODECLIMATE_REPO_TOKEN"
-  - "./cc-test-reporter upload-coverage"
+  - "./cc-test-reporter upload-coverage -r $CODECLIMATE_REPO_TOKEN"
