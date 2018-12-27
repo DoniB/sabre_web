@@ -1,7 +1,8 @@
 env:
   global:
-    - DISPLAY=:99.0
-    - secure: "ZAqnCgr83JU6ZFGJAdZy7BvrhVvTVpDf5wFR3EjgSwwsB1iYwytooJF5P/+1YGegyqlr0Lbit4rR61S8lG79nILPTO1zmXKeZQ9lcDnBB02Yc1rB3kJlMfJTBcH1rpDuBn8IVDxgHEpgtR1tCXP5L8qTBeQN5+gQrY4LcHmUnUpjNmxjnFQPTazAPpDcD58Fsw4tJeel63KUCi9eS42GCI49MqJ/bwiWwmXvfMMpvkEo+FGoB1rqjkP+2XjgVQHp4mgnlLJgMTFb2/H6Al5i9syOuC32GRUNkyZ+G4DiHrhxFHYT0c+ydRaq7QCN8QOzzkwInZx+qPzjixJwjRsXQ1AQTZy4wUKJ8UWjx6h+k3sGQDmVxRMe3+8845ZGm2T9yj1o2CaX6KyMUr0Nx525NbRbKjG6eFAWzsBKCl73cEoCAgl/GzRpcnJa/8nz2WeH/sqCN96eHMjGR4FmOr4jOGtlgHaqYuUdzed+RcX+/sitAgs7eLa7302PfGB882u8VuUU2+ICX2KYWL82NKf9U0lX0xZx1Gh1VSzQzH2aiqOeI/OK2EBOmzXjFafVxRxGL+sJsfb7x4+XGzdczDcdIbmWQTh05yCcnh/idUcpDPz4/hGarVRt2dNqmE0i7QWcTW1WaxQMI7Hz4t2BSyqkXJnlqYeOe651YgCNrL2mavs="
+  - DISPLAY=:99.0
+  - secure: ZAqnCgr83JU6ZFGJAdZy7BvrhVvTVpDf5wFR3EjgSwwsB1iYwytooJF5P/+1YGegyqlr0Lbit4rR61S8lG79nILPTO1zmXKeZQ9lcDnBB02Yc1rB3kJlMfJTBcH1rpDuBn8IVDxgHEpgtR1tCXP5L8qTBeQN5+gQrY4LcHmUnUpjNmxjnFQPTazAPpDcD58Fsw4tJeel63KUCi9eS42GCI49MqJ/bwiWwmXvfMMpvkEo+FGoB1rqjkP+2XjgVQHp4mgnlLJgMTFb2/H6Al5i9syOuC32GRUNkyZ+G4DiHrhxFHYT0c+ydRaq7QCN8QOzzkwInZx+qPzjixJwjRsXQ1AQTZy4wUKJ8UWjx6h+k3sGQDmVxRMe3+8845ZGm2T9yj1o2CaX6KyMUr0Nx525NbRbKjG6eFAWzsBKCl73cEoCAgl/GzRpcnJa/8nz2WeH/sqCN96eHMjGR4FmOr4jOGtlgHaqYuUdzed+RcX+/sitAgs7eLa7302PfGB882u8VuUU2+ICX2KYWL82NKf9U0lX0xZx1Gh1VSzQzH2aiqOeI/OK2EBOmzXjFafVxRxGL+sJsfb7x4+XGzdczDcdIbmWQTh05yCcnh/idUcpDPz4/hGarVRt2dNqmE0i7QWcTW1WaxQMI7Hz4t2BSyqkXJnlqYeOe651YgCNrL2mavs=
+  - secure: VyrdBVLXqBQWp3KHwWEeuCreke3r+gQR9IwSIFF2ZhbnlWdlSr6F7Siu+Ky0kAvhWfg/FnbjMaQQNsS5R2VK3IatopNApu0Sow7XM3CD+IEniz4kshvHI0zeD0hTufGClMW1FCNLqoaVKPhI6LFwIj0Z+foLInD2sXcXfdG0Y549wlFwzdMQWTL9LlIeQbpW45lFC7vruwUaxNeaB2/s5IZP9hkV62Gq6wKjW1JX7B/NlrE5ZOcQ4jn5F754pySEkrmJdXVFiKWEiCZqxrtYryCSBkD+TMJmfzlW4jxJ7/QMj3LAoOVmKQMb8TBmP5qc7zOqVgZpG+QOEkEmodcfDj8IuJ9GYmqAgOX1kvjTHTv2VHFivPh/AG95BTJMMdx3b+Jeuh5Or5aWrSpF0KQSV/iRurC62DRDBAIbXWPmGM7ZYyTQUanLq+Pv5EKfkE9OrzrX/T3gdRT/+1LuQ7WX2dgPYzukCjRfbLtoEtunwWarJdIV/hsiynibhYKmlsZpxeYEmYSQPi7DMwS9bpKLxcuChMDHnjoOFKi0PE215F2He37dZF7aZpWgkHR1T0P6tBtdR7c653tchnT4jWxF5j46IoaSP+TRrfYcGXv2cPOprq2u8XKJqa21ZzF+h9sUwgmZgCMuL6L5TWthOsYhaCrwHAWf6MS8qEDpynIc4eU=
 addons:
   firefox: latest
   chrome: stable
@@ -9,14 +10,14 @@ addons:
     packages:
     - chromium-browser
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64> ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64> ./cc-test-reporter
+- chmod +x ./cc-test-reporter
 dist: trusty
 language: node_js
 node_js:
-  - 9.8.0
+- 9.8.0
 install:
-  - npm install
+- npm install
 after_script:
-  - "./cc-test-reporter format-coverage test/unit/coverage/lcov.info --input-type lcov"
-  - "./cc-test-reporter upload-coverage -r $CODECLIMATE_REPO_TOKEN"
+- "./cc-test-reporter format-coverage test/unit/coverage/lcov.info --input-type lcov"
+- "./cc-test-reporter upload-coverage"
