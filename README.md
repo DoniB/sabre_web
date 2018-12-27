@@ -1,6 +1,8 @@
 # README
 
 [![Build Status](https://travis-ci.org/DoniB/sabre_web.svg?branch=master)](https://travis-ci.org/DoniB/sabre_web)
+[![Maintainability](https://api.codeclimate.com/v1/badges/df7d8cbe62e57326c47b/maintainability)](https://codeclimate.com/github/DoniB/sabre_web/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/df7d8cbe62e57326c47b/test_coverage)](https://codeclimate.com/github/DoniB/sabre_web/test_coverage)
 
 Repositório oficial SABRE_web.
 
