@@ -18,8 +18,6 @@ node_js:
 - 9.8.0
 install:
   - npm install
-  - npm run build
-  - git add dist
 after_script:
   - "./cc-test-reporter format-coverage test/unit/coverage/lcov.info --input-type lcov"
   - "./cc-test-reporter upload-coverage"
