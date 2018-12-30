@@ -1,45 +1,58 @@
 <template>
-    <md-card>
-        <favorite-button :recipeId="recipe.id" :mdMini="true" class="favorite-button"></favorite-button>
-        <md-card-media>
-            <img :src="cover" alt="Receita">
-        </md-card-media>
-        <md-card-header>
-            <div class="md-title">{{ recipe.name }}</div>
-            <div class="md-subhead">{{ recipe.owner }}</div>
-            <div class="md-subhead recipe-date">{{ recipe.created_at | timePassed }}</div>
-            <div class="md-layout md-alignment-top-right">
-                <star-rating
-                    :rating="recipe.average_stars"
-                    :star-size="20"
-                    rounded-corners
-                    :show-rating="false"
-                    :padding="1"
-                    read-only>
-                </star-rating>
-            </div>
-        </md-card-header>
+  <md-card>
+    <favorite-button
+      :recipeId="recipe.id"
+      :mdMini="true"
+      class="favorite-button"
+    ></favorite-button>
+    <md-card-media> <img :src="cover" alt="Receita" /> </md-card-media>
+    <md-card-header>
+      <div class="md-title">{{ recipe.name }}</div>
+      <div class="md-subhead">{{ recipe.owner }}</div>
+      <div class="md-subhead recipe-date">
+        {{ recipe.created_at | timePassed }}
+      </div>
+      <div class="md-layout md-alignment-top-right">
+        <star-rating
+          :rating="recipe.average_stars"
+          :star-size="20"
+          rounded-corners
+          :show-rating="false"
+          :padding="1"
+          read-only
+        >
+        </star-rating>
+      </div>
+    </md-card-header>
 
-        <md-card-expand>
-            <md-card-actions md-alignment="space-between">
-                <div>
-                    <md-button v-if="recipe.status === 1" :to="{ name: 'recipe.show', params: { id: recipe.id, friendlyUrl: friendlyUrl } }">Receita</md-button>
-                    <md-button v-if="showAdminEdit"
-                        :to="{ name: 'dashboard.recipes.edit', params: {id: recipe.id} }">Editar</md-button>
-                </div>
+    <md-card-expand>
+      <md-card-actions md-alignment="space-between">
+        <div>
+          <md-button
+            v-if="recipe.status === 1"
+            :to="{
+              name: 'recipe.show',
+              params: { id: recipe.id, friendlyUrl: friendlyUrl }
+            }"
+            >Receita</md-button
+          >
+          <md-button
+            v-if="showAdminEdit"
+            :to="{ name: 'dashboard.recipes.edit', params: { id: recipe.id } }"
+            >Editar</md-button
+          >
+        </div>
 
-                <md-card-expand-trigger @click="showRecipe = !showRecipe">
-                    <md-button>Ingredientes</md-button>
-                </md-card-expand-trigger>
-            </md-card-actions>
+        <md-card-expand-trigger @click="showRecipe = !showRecipe">
+          <md-button>Ingredientes</md-button>
+        </md-card-expand-trigger>
+      </md-card-actions>
 
-            <md-card-expand-content>
-                <md-card-content v-html="ingredients">
-                </md-card-content>
-            </md-card-expand-content>
-
-        </md-card-expand>
-    </md-card>
+      <md-card-expand-content>
+        <md-card-content v-html="ingredients"> </md-card-content>
+      </md-card-expand-content>
+    </md-card-expand>
+  </md-card>
 </template>
 
 <script>
@@ -49,9 +62,7 @@ import FavoriteButton from '@/components/shared/FavoriteButton.vue'
 import DateMixin from '@/app_library/date.js'
 
 export default {
-  mixins: [
-    DateMixin
-  ],
+  mixins: [DateMixin],
   props: {
     recipe: {
       type: Object,
@@ -63,17 +74,17 @@ export default {
     }
   },
   computed: {
-    ingredients () {
+    ingredients() {
       let htmlItens = ''
       this.recipe.ingredients.split('\n').forEach(element => {
         htmlItens += `<p>${element}</p>`
       })
       return htmlItens
     },
-    friendlyUrl () {
+    friendlyUrl() {
       return toFriendlyUrl(this.recipe.name)
     },
-    cover () {
+    cover() {
       return this.recipe.cover || '/static/img/demo.jpg'
     }
   },
@@ -86,23 +97,22 @@ export default {
 
 <style scoped>
 .md-card {
-    width: 360px;
-    margin: 4px;
-    display: inline-block;
-    vertical-align: top;
+  width: 360px;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .md-card-media {
-    height: 270px;
-    width: 360px;
+  height: 270px;
+  width: 360px;
 }
 .recipe-date {
-    text-align: right;
+  text-align: right;
 }
 
 .favorite-button {
-    top: 5px;
-    right: 5px;
+  top: 5px;
+  right: 5px;
 }
-
 </style>

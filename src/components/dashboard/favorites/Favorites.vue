@@ -3,7 +3,11 @@
     <div>
       <loading v-if="loading"></loading>
       <div v-else class="md-layout md-alignment-top-center">
-        <recipe-card v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></recipe-card>
+        <recipe-card
+          v-for="recipe in recipes"
+          :key="recipe.id"
+          :recipe="recipe"
+        ></recipe-card>
       </div>
     </div>
   </dashboard-frme>
@@ -15,7 +19,7 @@ import Loading from '@/components/shared/Loading.vue'
 import RecipeCard from '@/components/shared/RecipeCard.vue'
 
 export default {
-  data () {
+  data() {
     return {
       loading: true,
       recipes: []
@@ -26,7 +30,7 @@ export default {
     Loading,
     RecipeCard
   },
-  created () {
+  created() {
     this.remote.users.favorites.index(
       this.$store.state.secureToken,
       response => {

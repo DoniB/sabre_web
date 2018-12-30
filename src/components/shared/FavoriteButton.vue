@@ -1,7 +1,8 @@
 <template>
   <md-button
     @click="setFavorite"
-    class="md-fab md-fab-top-right md-alpha" :class="{'md-mini': mdMini}"
+    class="md-fab md-fab-top-right md-alpha"
+    :class="{ 'md-mini': mdMini }"
     :disabled="disableButton"
   >
     <md-icon>{{ favorite ? 'favorite' : 'favorite_border' }}</md-icon>
@@ -11,23 +12,23 @@
 <script>
 export default {
   props: {
-    'recipeId': {
+    recipeId: {
       required: true,
       type: Number
     },
-    'mdMini': {
+    mdMini: {
       default: false,
       type: Boolean
     }
   },
-  data () {
+  data() {
     return {
       favorite: false,
       disableButton: false
     }
   },
   methods: {
-    setFavorite () {
+    setFavorite() {
       this.disableButton = true
       if (this.favorite) {
         this.remote.recipes.favorite.delete(
@@ -52,7 +53,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.remote.recipes.favorite.show(
       this.recipeId,
       this.$store.state.secureToken,

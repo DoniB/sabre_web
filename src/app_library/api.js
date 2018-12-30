@@ -5,7 +5,7 @@ const BASE_URL = 'https://sabre-api.herokuapp.com/api/v1'
 const API = {
   users: {
     recipe: {
-      show (token, recipeId, success, error) {
+      show(token, recipeId, success, error) {
         axios
           .get(`${BASE_URL}/users/recipe/${recipeId}`, {
             headers: { 'X-Secure-Token': token }
@@ -15,17 +15,17 @@ const API = {
             if (error) error(err)
           })
       },
-      create (token, recipe, success, error) {
+      create(token, recipe, success, error) {
         axios
-          .post(BASE_URL + '/users/recipe',
-            recipe,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .post(BASE_URL + '/users/recipe', recipe, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      update (token, recipe, success, error) {
+      update(token, recipe, success, error) {
         const formData = {
           name: recipe.name,
           ingredients: recipe.ingredients,
@@ -36,15 +36,15 @@ const API = {
           formData.cover = recipe.cover
         }
         axios
-          .patch(`${BASE_URL}/users/recipe/${recipe.id}`,
-            formData,
-            { headers: { 'X-Secure-Token': token } })
+          .patch(`${BASE_URL}/users/recipe/${recipe.id}`, formData, {
+            headers: { 'X-Secure-Token': token }
+          })
           .then(success)
           .catch(err => {
             if (error) error(err)
           })
       },
-      index (token, params, success, error) {
+      index(token, params, success, error) {
         axios
           .get(BASE_URL + '/users/recipe', {
             params: params,
@@ -57,7 +57,7 @@ const API = {
       }
     },
     favorites: {
-      index (token, success, error) {
+      index(token, success, error) {
         axios
           .get(BASE_URL + '/users/favorites', {
             headers: { 'X-Secure-Token': token }
@@ -70,7 +70,7 @@ const API = {
     }
   },
   recipes: {
-    index (params, success, error) {
+    index(params, success, error) {
       axios
         .get(BASE_URL + '/recipes', {
           params: params
@@ -81,79 +81,97 @@ const API = {
         })
     },
     comments: {
-      create (token, recipe, text, success, error) {
+      create(token, recipe, text, success, error) {
         axios
-          .post(BASE_URL + '/recipes/' + recipe + '/comments', {
-            text: text
-          }, { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .post(
+            BASE_URL + '/recipes/' + recipe + '/comments',
+            {
+              text: text
+            },
+            { headers: { 'X-Secure-Token': token } }
+          )
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      index (recipe, success, error) {
+      index(recipe, success, error) {
         axios
           .get(BASE_URL + '/recipes/' + recipe + '/comments')
-          .then(response => (success(response)))
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      delete (token, comment, success, error) {
+      delete(token, comment, success, error) {
         axios
-          .delete(BASE_URL + '/recipes/' + comment.recipe_id + '/comments/' + comment.id,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .delete(
+            BASE_URL +
+              '/recipes/' +
+              comment.recipe_id +
+              '/comments/' +
+              comment.id,
+            { headers: { 'X-Secure-Token': token } }
+          )
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       }
     },
     rating: {
-      show (recipe, token, success, error) {
+      show(recipe, token, success, error) {
         axios
-          .get(BASE_URL + '/recipes/' + recipe + '/rating',
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .get(BASE_URL + '/recipes/' + recipe + '/rating', {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      create (recipe, stars, token, success, error) {
+      create(recipe, stars, token, success, error) {
         axios
-          .post(BASE_URL + '/recipes/' + recipe + '/rating',
+          .post(
+            BASE_URL + '/recipes/' + recipe + '/rating',
             { stars: stars },
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+            { headers: { 'X-Secure-Token': token } }
+          )
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       }
     },
     favorite: {
-      create (recipe, token, success, error) {
+      create(recipe, token, success, error) {
         axios
-          .post(BASE_URL + '/recipes/' + recipe + '/favorite', {},
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .post(
+            BASE_URL + '/recipes/' + recipe + '/favorite',
+            {},
+            { headers: { 'X-Secure-Token': token } }
+          )
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      show (recipe, token, success, error) {
+      show(recipe, token, success, error) {
         axios
-          .get(BASE_URL + '/recipes/' + recipe + '/favorite',
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .get(BASE_URL + '/recipes/' + recipe + '/favorite', {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      delete (recipe, token, success, error) {
+      delete(recipe, token, success, error) {
         axios
-          .delete(BASE_URL + '/recipes/' + recipe + '/favorite',
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .delete(BASE_URL + '/recipes/' + recipe + '/favorite', {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
@@ -161,10 +179,10 @@ const API = {
     }
   },
   categories: {
-    index (success, error) {
+    index(success, error) {
       axios
         .get(BASE_URL + '/categories')
-        .then(response => (success(response)))
+        .then(response => success(response))
         .catch(err => {
           if (error) error(err)
         })
@@ -172,7 +190,7 @@ const API = {
   },
   adm: {
     users: {
-      index (token, page, query, success, error) {
+      index(token, page, query, success, error) {
         let qParams = '?page=' + page
 
         if (query) {
@@ -180,23 +198,25 @@ const API = {
         }
 
         axios
-          .get(BASE_URL + '/adm/users' + qParams,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .get(BASE_URL + '/adm/users' + qParams, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      show (token, id, success, error) {
+      show(token, id, success, error) {
         axios
-          .get(BASE_URL + '/adm/users/' + id,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .get(BASE_URL + '/adm/users/' + id, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      update (token, user, success, error) {
+      update(token, user, success, error) {
         const userParams = {
           username: user.username,
           email: user.email,
@@ -209,22 +229,24 @@ const API = {
         }
 
         axios
-          .patch(BASE_URL + '/adm/users/' + user.id,
-            userParams,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .patch(BASE_URL + '/adm/users/' + user.id, userParams, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
             if (error) error(err)
           })
       },
-      create (token, user, success, error) {
+      create(token, user, success, error) {
         axios
-          .post(BASE_URL + '/adm/users',
-            user,
-            { headers: { 'X-Secure-Token': token } })
-          .then(response => (success(response)))
+          .post(BASE_URL + '/adm/users', user, {
+            headers: { 'X-Secure-Token': token }
+          })
+          .then(response => success(response))
           .catch(err => {
-            if (error) { error(err.response) }
+            if (error) {
+              error(err.response)
+            }
           })
       }
     }
@@ -233,7 +255,7 @@ const API = {
 
 const mixin = {
   computed: {
-    remote () {
+    remote() {
       return API
     }
   }

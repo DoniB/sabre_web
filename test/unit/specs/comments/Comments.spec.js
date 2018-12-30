@@ -20,7 +20,9 @@ describe('@/components/comments/Comments.vue', () => {
   //   }
   // }
 
-  it('should render correct contents') /* , (done) => {
+  it(
+    'should render correct contents'
+  ) /* , (done) => {
     const Constructor = Vue.extend(Comments)
     const vm = new Constructor({propsData: {
       recipeId: 6 },

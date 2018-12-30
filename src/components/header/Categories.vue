@@ -9,7 +9,8 @@
           id: category.id,
           friendlyUrl: friendlyUrl(category.name)
         }
-      }">
+      }"
+    >
       {{ category.name }}
     </md-button>
   </div>
@@ -19,29 +20,29 @@
 import { toFriendlyUrl } from '@/app_library/url.js'
 
 export default {
-  data () {
+  data() {
     return {
       categories: {}
     }
   },
   methods: {
-    friendlyUrl (name) {
+    friendlyUrl(name) {
       return toFriendlyUrl(name)
     }
   },
-  created () {
+  created() {
     this.remote.categories.index(
-      (res) => {
+      res => {
         this.categories = res.data
       },
-      (err) => console.log('error loading categories at header', err)
+      err => console.log('error loading categories at header', err)
     )
   }
 }
 </script>
 
 <style scoped>
-  div {
-    text-align: center;
-  }
+div {
+  text-align: center;
+}
 </style>

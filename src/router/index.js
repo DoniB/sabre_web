@@ -88,7 +88,8 @@ export default new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '*', component: PageNotFound
+      path: '*',
+      component: PageNotFound
     }
   ]
 })

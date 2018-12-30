@@ -5,19 +5,35 @@
         <md-card-header class="md-transparent">
           <h3 class="md-title">Comentários</h3>
         </md-card-header>
-        <br>
-        <md-field :class="{'md-invalid': invalidMessage}">
+        <br />
+        <md-field :class="{ 'md-invalid': invalidMessage }">
           <label>Seu comentário</label>
-          <md-textarea @focus="canComment" v-model="text" required md-autogrow></md-textarea>
-          <span class="md-helper-text">Deixe sua opinião sobre esta receita</span>
-          <span class="md-error">A mensagem deve ter no mínimo 10 caracteres</span>
+          <md-textarea
+            @focus="canComment"
+            v-model="text"
+            required
+            md-autogrow
+          ></md-textarea>
+          <span class="md-helper-text"
+            >Deixe sua opinião sobre esta receita</span
+          >
+          <span class="md-error"
+            >A mensagem deve ter no mínimo 10 caracteres</span
+          >
         </md-field>
         <div class="pull-rigth">
-          <md-button @click="sendComment" :disabled="disableSend">Comentar</md-button>
+          <md-button @click="sendComment" :disabled="disableSend"
+            >Comentar</md-button
+          >
         </div>
       </div>
       <md-divider></md-divider>
-      <comment @commentDeleted="removeComment" v-for="c in comments" :comment="c" :key="'com' + c.id"></comment>
+      <comment
+        @commentDeleted="removeComment"
+        v-for="c in comments"
+        :comment="c"
+        :key="'com' + c.id"
+      ></comment>
     </md-card-content>
     <div id="end-comments"></div>
   </md-card>
@@ -29,7 +45,7 @@ import router from '@/router'
 
 export default {
   props: ['recipeId'],
-  data () {
+  data() {
     return {
       text: '',
       sendClicked: false,
@@ -39,26 +55,30 @@ export default {
     }
   },
   methods: {
-    sendComment () {
+    sendComment() {
       this.sendClicked = true
       if (this.invalidMessage) return
       this.disableSend = true
       const token = this.$cookie.get('SecureToken')
       this.remote.recipes.comments.create(
-        token, this.recipeId, this.text, this.commentCreated, this.commentErrorCreating
+        token,
+        this.recipeId,
+        this.text,
+        this.commentCreated,
+        this.commentErrorCreating
       )
     },
-    commentCreated (response) {
+    commentCreated(response) {
       this.notCommented = false
       this.text = response.data.text
       this.comments.push(response.data)
       window.scrollTo(0, document.body.scrollHeight)
     },
-    commentErrorCreating (response) {
+    commentErrorCreating(response) {
       this.disableSend = false
       console.log('error', response)
     },
-    canComment () {
+    canComment() {
       if (!this.isAuth()) {
         router.push({
           path: '/sign',
@@ -66,7 +86,7 @@ export default {
         })
       }
     },
-    removeComment (comment) {
+    removeComment(comment) {
       for (let i = 0; i < this.comments.length; i++) {
         if (this.comments[i] === comment) {
           this.comments.splice(i, 1)
@@ -76,11 +96,11 @@ export default {
     }
   },
   computed: {
-    invalidMessage () {
+    invalidMessage() {
       return this.sendClicked && this.text.length < 10
     }
   },
-  created () {
+  created() {
     this.remote.recipes.comments.index(this.recipeId, response => {
       this.comments = response.data
     })
@@ -97,15 +117,17 @@ export default {
 }
 
 .mutted {
-  color: #8f8f8f
+  color: #8f8f8f;
 }
 
-@import "~vue-material/dist/theme/engine";
+@import '~vue-material/dist/theme/engine';
 
-@include md-register-theme("comment-card", (
-  primary: #f9f9f9
-));
+@include md-register-theme(
+  'comment-card',
+  (
+    primary: #f9f9f9
+  )
+);
 
-@import "~vue-material/dist/theme/all";
-
+@import '~vue-material/dist/theme/all';
 </style>

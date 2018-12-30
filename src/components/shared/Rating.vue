@@ -6,7 +6,8 @@
       rounded-corners
       :show-rating="false"
       :padding="1"
-      @rating-selected="ratingSelected"></star-rating>
+      @rating-selected="ratingSelected"
+    ></star-rating>
   </div>
 </template>
 
@@ -15,15 +16,14 @@ import StarRating from 'vue-star-rating'
 import router from '@/router'
 
 export default {
-  props:
-    ['recipeId', 'averageStars'],
-  data () {
+  props: ['recipeId', 'averageStars'],
+  data() {
     return {
       stars: 0
     }
   },
   methods: {
-    ratingSelected (value) {
+    ratingSelected(value) {
       if (this.isAuth()) {
         this.remote.recipes.rating.create(
           this.recipeId,
@@ -39,23 +39,24 @@ export default {
         })
       }
     },
-    loadUserRating (response) {
+    loadUserRating(response) {
       if (response.data) {
         this.stars = response.data.stars
       }
     },
-    loadUserRatingError (data) {
+    loadUserRatingError(data) {
       console.log(data)
     }
   },
-  created () {
+  created() {
     this.stars = this.averageStars
     if (this.isAuth()) {
       this.remote.recipes.rating.show(
         this.recipeId,
         this.$cookie.get('SecureToken'),
         this.loadUserRating,
-        this.loadUserRatingError)
+        this.loadUserRatingError
+      )
     }
   },
   components: {

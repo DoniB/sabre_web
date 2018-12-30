@@ -5,23 +5,47 @@
       <div v-else>
         <div class="md-layout" v-if="isAdmin">
           <div class="md-size-80 recipe-filter">
-            <md-radio v-model="recipesFilter" value="all">Todas As Receitas</md-radio>
-            <md-radio v-model="recipesFilter" value="waiting_activation">Receitas Para Aprovar</md-radio>
-            <md-radio v-model="recipesFilter" value="my">Minhas Receitas</md-radio>
+            <md-radio v-model="recipesFilter" value="all"
+              >Todas As Receitas</md-radio
+            >
+            <md-radio v-model="recipesFilter" value="waiting_activation"
+              >Receitas Para Aprovar</md-radio
+            >
+            <md-radio v-model="recipesFilter" value="my"
+              >Minhas Receitas</md-radio
+            >
           </div>
         </div>
         <div class="md-layout">
           <div class="md-layout-item md-size-80 recipe-filter">
             <md-field>
-              <md-input @keypress.enter="loadRecipes" v-model="searchQuery" placeholder="Procurar por nome"></md-input>
-              <md-button @click="loadRecipes" class="md-icon-button"><md-icon>search</md-icon></md-button>
+              <md-input
+                @keypress.enter="loadRecipes"
+                v-model="searchQuery"
+                placeholder="Procurar por nome"
+              ></md-input>
+              <md-button @click="loadRecipes" class="md-icon-button"
+                ><md-icon>search</md-icon></md-button
+              >
             </md-field>
           </div>
         </div>
-        <recipe-card :showAdminEdit="true" v-for="recipe in recipes" :key="'userRecipe' + recipe.id" :recipe="recipe"></recipe-card>
+        <recipe-card
+          :showAdminEdit="true"
+          v-for="recipe in recipes"
+          :key="'userRecipe' + recipe.id"
+          :recipe="recipe"
+        ></recipe-card>
       </div>
       <div v-if="hasMore">
-        <p style="text-align: center"><md-button class="md-accent" :disabled="isLoadingMore" @click="loadRecipes">Mais Receitas <md-icon>expand_more</md-icon></md-button></p>
+        <p style="text-align: center">
+          <md-button
+            class="md-accent"
+            :disabled="isLoadingMore"
+            @click="loadRecipes"
+            >Mais Receitas <md-icon>expand_more</md-icon></md-button
+          >
+        </p>
       </div>
     </div>
   </dashboard-frame>
@@ -34,7 +58,7 @@ import CenterContent from '@/components/shared/CenterContent.vue'
 import Loading from '@/components/shared/Loading.vue'
 
 export default {
-  data () {
+  data() {
     return {
       title: 'Receitas',
       recipes: [],
@@ -48,12 +72,12 @@ export default {
     }
   },
   computed: {
-    isAdmin () {
+    isAdmin() {
       return this.$store.state.isAdmin
     }
   },
   methods: {
-    loadRecipes () {
+    loadRecipes() {
       this.isLoadingMore = true
 
       const params = {
@@ -71,14 +95,11 @@ export default {
       }
 
       const token = this.$cookie.get('SecureToken')
-      this.remote.users.recipe.index(
-        token,
-        params,
-        this.recipesLoaded,
-        (error) => console.log(error)
+      this.remote.users.recipe.index(token, params, this.recipesLoaded, error =>
+        console.log(error)
       )
     },
-    recipesLoaded (response) {
+    recipesLoaded(response) {
       response.data.forEach(element => {
         this.recipes.push(element)
       })
@@ -95,14 +116,14 @@ export default {
     centerContent: CenterContent,
     Loading
   },
-  created () {
+  created() {
     if (this.isAdmin) {
       this.recipesFilter = 'waiting_activation'
     }
     this.loadRecipes()
   },
   watch: {
-    recipesFilter () {
+    recipesFilter() {
       if (this.disableFilterWatch) return
       this.page = 0
       this.recipes = []

@@ -3,7 +3,8 @@ import router from '@/router'
 import store from '@/store'
 import VueCookie from 'vue-cookie'
 
-import { MdButton,
+import {
+  MdButton,
   MdContent,
   MdTabs,
   MdToolbar,
@@ -14,7 +15,8 @@ import { MdButton,
   MdSnackbar,
   MdMenu,
   MdList,
-  MdDivider } from 'vue-material/dist/components'
+  MdDivider
+} from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 

@@ -1,6 +1,6 @@
 const dateMixin = {
   filters: {
-    timePassed (input) {
+    timePassed(input) {
       const inputDate = new Date(input)
       const today = new Date()
       const timeDiff = Math.abs(today.getTime() - inputDate.getTime())

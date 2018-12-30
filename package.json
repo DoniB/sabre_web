@@ -11,13 +11,17 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "lint-auto-fix": "eslint --ext .js,.vue src test/unit test/e2e/specs --fix",
     "build": "node build/build.js",
     "postinstall": "npm run build"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "express": "^4.16.4",
     "node-sass": "^4.9.4",
+    "prettier": "^1.15.3",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
     "vue-cookie": "^1.1.4",

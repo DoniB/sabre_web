@@ -1,11 +1,19 @@
 <template>
   <div class="md-layout md-alignment-top-center">
     <div class="paginate-control">
-      <md-button :disabled="!canReduce" class="md-icon-button" @click="changePage(-1)">
+      <md-button
+        :disabled="!canReduce"
+        class="md-icon-button"
+        @click="changePage(-1)"
+      >
         <md-icon>arrow_left</md-icon>
       </md-button>
       <span class="paginate-control-value">{{ currentPage + 1 }}</span>
-      <md-button :disabled="!canIncrease" class="md-icon-button" @click="changePage(1)">
+      <md-button
+        :disabled="!canIncrease"
+        class="md-icon-button"
+        @click="changePage(1)"
+      >
         <md-icon>arrow_right</md-icon>
       </md-button>
     </div>
@@ -15,26 +23,26 @@
 <script>
 export default {
   props: {
-    'currentPage': {
+    currentPage: {
       required: true,
       type: Number
     },
-    'totalPages': {
+    totalPages: {
       required: true,
       type: Number
     }
   },
   methods: {
-    changePage (value) {
+    changePage(value) {
       this.$emit('change', this.currentPage + value)
     }
   },
   computed: {
-    canReduce () {
+    canReduce() {
       return this.currentPage > 0
     },
-    canIncrease () {
-      return this.currentPage < (this.totalPages - 1)
+    canIncrease() {
+      return this.currentPage < this.totalPages - 1
     }
   }
 }
@@ -52,5 +60,4 @@ export default {
   display: inline-block;
   margin-top: 8px;
 }
-
 </style>

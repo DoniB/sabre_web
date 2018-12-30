@@ -5,7 +5,6 @@ describe('PageNotFound.vue', () => {
   it('should render correct contents', () => {
     const Constructor = Vue.extend(NotFound)
     const vm = new Constructor().$mount()
-    expect(vm.$el.textContent.trim())
-      .to.equal('Página nâo encontrada')
+    expect(vm.$el.textContent.trim()).to.equal('Página nâo encontrada')
   })
 })

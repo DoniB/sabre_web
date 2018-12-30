@@ -1,6 +1,6 @@
 const AUTH = {
   methods: {
-    isAuth () {
+    isAuth() {
       return !!this.$cookie.get('SecureToken')
     }
   }

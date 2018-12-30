@@ -4,26 +4,46 @@
     <div v-else class="md-layout md-gutter md-alignment-top-center">
       <md-card style="max-width: 680px;">
         <md-card-media>
-          <img :src="cover" alt="Foto Receita">
-          <md-button v-if="isAdmin" :to="{name: 'dashboard.recipes.edit', params: {id: recipe.id}}" class="md-fab md-fab-top-left">
+          <img :src="cover" alt="Foto Receita" />
+          <md-button
+            v-if="isAdmin"
+            :to="{ name: 'dashboard.recipes.edit', params: { id: recipe.id } }"
+            class="md-fab md-fab-top-left"
+          >
             <md-icon>edit</md-icon>
           </md-button>
-          <favorite-button :recipeId="recipe.id" class="favorite-button"></favorite-button>
+          <favorite-button
+            :recipeId="recipe.id"
+            class="favorite-button"
+          ></favorite-button>
         </md-card-media>
 
         <md-card-header>
           <div class="md-title">{{ recipe.name }}</div>
           <div class="md-subhead">
             {{ recipe.owner }}
-            <router-link v-if="isAdmin" tag="a" :to="{name: 'dashboard.users.edit', params: {id: recipe.user_id}}" class="edit-user-link">
+            <router-link
+              v-if="isAdmin"
+              tag="a"
+              :to="{
+                name: 'dashboard.users.edit',
+                params: { id: recipe.user_id }
+              }"
+              class="edit-user-link"
+            >
               <md-icon>edit</md-icon>
             </router-link>
-            <div class="md-subhead recipe-date">{{ recipe.created_at | timePassed }}</div>
+            <div class="md-subhead recipe-date">
+              {{ recipe.created_at | timePassed }}
             </div>
+          </div>
         </md-card-header>
 
         <md-card-actions>
-          <rating :recipeId="recipe.id" :averageStars="recipe.average_stars"></rating>
+          <rating
+            :recipeId="recipe.id"
+            :averageStars="recipe.average_stars"
+          ></rating>
         </md-card-actions>
 
         <md-card-content id="recipe-content">
@@ -31,25 +51,32 @@
             <md-toolbar class="md-transparent">
               <h3 class="md-title">Ingredientes</h3>
             </md-toolbar>
-            <br>
+            <br />
             <ul>
-              <li v-for="(ingredient, index) in recipe.ingredients.split('\n')" :key="'ing' + index" v-if="ingredient">
+              <li
+                v-for="(ingredient, index) in recipe.ingredients.split('\n')"
+                :key="'ing' + index"
+                v-if="ingredient"
+              >
                 {{ ingredient }}
               </li>
             </ul>
-            <br><br>
+            <br /><br />
           </div>
           <div>
             <md-toolbar class="md-transparent">
               <h3 class="md-title">Modo de preparo</h3>
             </md-toolbar>
-            <br>
+            <br />
             <ol>
-              <li v-for="(direction, index) in recipe.directions.split('\n')" :key="'dir' + index">
+              <li
+                v-for="(direction, index) in recipe.directions.split('\n')"
+                :key="'dir' + index"
+              >
                 {{ direction }}
               </li>
             </ol>
-            <br>
+            <br />
           </div>
         </md-card-content>
         <md-card-content>
@@ -69,35 +96,38 @@ import DateMixin from '@/app_library/date.js'
 const axios = require('axios')
 
 export default {
-  mixins: [
-    DateMixin
-  ],
-  data () {
+  mixins: [DateMixin],
+  data() {
     return {
       recipe: {},
       isLoading: true
     }
   },
   computed: {
-    isAdmin () {
+    isAdmin() {
       return this.$store.state.isAdmin
     },
-    cover () {
+    cover() {
       return this.recipe.cover || '/static/img/demo.jpg'
     }
   },
   methods: {
-    setRecipe (response) {
+    setRecipe(response) {
       this.recipe = response.data
       this.isLoading = false
       console.log(this.recipe)
     }
   },
-  created () {
+  created() {
     axios
-      .get('https://sabre-api.herokuapp.com/api/v1/recipes/' + this.$route.params.id)
+      .get(
+        'https://sabre-api.herokuapp.com/api/v1/recipes/' +
+          this.$route.params.id
+      )
       .then(this.setRecipe)
-      .catch((error) => { console.log(error) })
+      .catch(error => {
+        console.log(error)
+      })
   },
   components: {
     Loading,
@@ -114,11 +144,11 @@ export default {
 }
 
 .recipe-date {
-    text-align: right;
+  text-align: right;
 }
 
 .favorite-button {
-    top: 10px !important;
-    right: 10px !important;
+  top: 10px !important;
+  right: 10px !important;
 }
 </style>

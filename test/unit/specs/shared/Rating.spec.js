@@ -2,7 +2,9 @@
 // import Rating from '@/components/shared/Rating.vue'
 
 describe('@/components/shared/Rating.vue', () => {
-  it('should have props') /* , (done) => {
+  it(
+    'should have props'
+  ) /* , (done) => {
     const Constructor = Vue.extend(Rating)
     const recipeId = 10
     const vm = new Constructor({propsData: {

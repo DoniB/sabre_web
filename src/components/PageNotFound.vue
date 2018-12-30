@@ -1,5 +1,3 @@
 <template>
-    <div>
-        Página nâo encontrada
-    </div>
+  <div>Página nâo encontrada</div>
 </template>

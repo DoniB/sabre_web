@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="page-container">
-
     <md-toolbar class="md-medium">
       <div class="md-toolbar-section-start">
         <router-link to="/"><h3 class="md-title">SABRE</h3></router-link>
@@ -14,21 +13,35 @@
             @keypress.enter="search"
             @input="findComma"
             placeholder="Procurar receitas"
-            class="md-default"></md-input>
-          <md-checkbox v-model="recipesOnly" v-if="showRecipesOnly">Só com estes ingredientes</md-checkbox>
-          <md-button @click="search" class="md-icon-button"><md-icon>search</md-icon></md-button>
+            class="md-default"
+          >
+          </md-input>
+          <md-checkbox v-model="recipesOnly" v-if="showRecipesOnly"
+            >Só com estes ingredientes</md-checkbox
+          >
+          <md-button @click="search" class="md-icon-button"
+            ><md-icon>search</md-icon></md-button
+          >
         </md-field>
       </div>
       <div class="md-toolbar-section-end">
-        <md-button class="md-default" to="/painel/enviar-receita"><md-icon>restaurant_menu</md-icon> Enviar Receita </md-button>
+        <md-button class="md-default" to="/painel/enviar-receita"
+          ><md-icon>restaurant_menu</md-icon> Enviar Receita
+        </md-button>
         <md-menu md-align-trigger v-if="$store.state.isLogged">
-          <md-button class="md-default" md-menu-trigger><md-icon>perm_identity</md-icon> {{ firstname }}</md-button>
+          <md-button class="md-default" md-menu-trigger
+            ><md-icon>perm_identity</md-icon> {{ firstname }}</md-button
+          >
           <md-menu-content>
-            <md-menu-item  to="/painel" class="menu-link">Minha Conta</md-menu-item>
-            <md-menu-item  @click="logOut">Sair</md-menu-item>
+            <md-menu-item to="/painel" class="menu-link"
+              >Minha Conta</md-menu-item
+            >
+            <md-menu-item @click="logOut">Sair</md-menu-item>
           </md-menu-content>
         </md-menu>
-        <md-button v-else class="md-default" to="/sign"><md-icon>perm_identity</md-icon> Entrar</md-button>
+        <md-button v-else class="md-default" to="/sign"
+          ><md-icon>perm_identity</md-icon> Entrar</md-button
+        >
       </div>
     </md-toolbar>
     <md-toolbar class="md-primary md-medium" v-if="showCategoryBar">
@@ -37,11 +50,8 @@
 
     <!-- <router-link to="/sign">Entrar</router-link> -->
     <div class="md-layout router-body">
-      <div class="md-layout-item md-size-100">
-        <router-view></router-view>
-      </div>
+      <div class="md-layout-item md-size-100"><router-view></router-view></div>
     </div>
-
   </div>
 </template>
 
@@ -69,7 +79,7 @@ router.beforeEach((to, from, next) => {
 
 export default {
   name: 'App',
-  data () {
+  data() {
     return {
       query: '',
       showCategoryBar: 'true',
@@ -79,18 +89,17 @@ export default {
   },
   methods: {
     ...mapActions(['unloadUser', 'loadUser']),
-    logOut () {
+    logOut() {
       this.unloadUser()
       this.$cookie.delete('SecureToken')
       if (router.currentRoute.meta.requiresAuth) {
-        router.push(
-          {
-            path: '/sign',
-            query: { redirect: router.currentRoute.fullPath }
-          })
+        router.push({
+          path: '/sign',
+          query: { redirect: router.currentRoute.fullPath }
+        })
       }
     },
-    doLogin (response) {
+    doLogin(response) {
       this.loadUser(response.data)
       if (this.$route.name === 'sign') {
         let redirect = this.$route.query.redirect
@@ -101,7 +110,7 @@ export default {
         }
       }
     },
-    search () {
+    search() {
       router.push({
         name: 'index',
         query: {
@@ -109,11 +118,11 @@ export default {
         }
       })
     },
-    findComma (v) {
+    findComma(v) {
       this.showRecipesOnly = v.indexOf(',') >= 0
     }
   },
-  created () {
+  created() {
     let token = this.$cookie.get('SecureToken')
     if (token) {
       axios
@@ -128,7 +137,7 @@ export default {
     this.query = this.$route.query.q
   },
   computed: {
-    firstname () {
+    firstname() {
       return this.$store.state.username.split(' ')[0]
     }
   },
@@ -136,7 +145,7 @@ export default {
     Categories
   },
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       if (to.query.q !== from.query.q) {
         this.query = this.$route.query.q
       }
@@ -148,15 +157,15 @@ export default {
 </script>
 
 <style scoped>
-  .router-body {
-    margin-top: 5px;
-  }
+.router-body {
+  margin-top: 5px;
+}
 
-  #search {
-    width: 500px;
-  }
+#search {
+  width: 500px;
+}
 
-  #search input {
-    height: 52px;
-  }
+#search input {
+  height: 52px;
+}
 </style>
