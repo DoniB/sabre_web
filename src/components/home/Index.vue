@@ -50,20 +50,10 @@ export default {
       this.hasMore = response.data.length === 20
       this.page++
     },
-    loadRecipes() {
+    loadRecipes(params) {
       this.isLoadingMore = true
 
-      let params = {
-        page: this.page
-      }
-
-      if (this.$route.query.q) {
-        params['q'] = this.$route.query.q
-      }
-
-      if (this.$route.params.id) {
-        params['category'] = this.$route.params.id
-      }
+      params['page'] = this.page
 
       this.remote.recipes.index(params, this.setRecipes, error => {
         console.log(error)
@@ -71,14 +61,41 @@ export default {
     }
   },
   created() {
-    this.loadRecipes()
+    let params = {}
+    if (this.$route.query.q) {
+      params['q'] = this.$route.query.q
+    }
+
+    if (this.$route.query.i === 'true') {
+      params['by_ingredients'] = 1
+    }
+
+    if (this.$route.params.id) {
+      params['category'] = this.$route.params.id
+    }
+
+    this.loadRecipes(params)
   },
   watch: {
     $route(to, from) {
       this.isLoading = true
       this.recipes = []
       this.page = 0
-      this.loadRecipes({ q: to.query.q })
+
+      let params = {}
+      if (to.query.q) {
+        params['q'] = to.query.q
+      }
+
+      if (to.query.i === true) {
+        params['by_ingredients'] = 1
+      }
+
+      if (to.params.id) {
+        params['category'] = to.params.id
+      }
+
+      this.loadRecipes(params)
     }
   }
 }

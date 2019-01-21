@@ -16,7 +16,9 @@
             class="md-default"
           >
           </md-input>
-          <md-checkbox v-model="recipesOnly" v-if="showRecipesOnly"
+          <md-checkbox
+            v-model="recipesByIngredients"
+            v-if="showRecipesByIngredientsOption"
             >Só com estes ingredientes</md-checkbox
           >
           <md-button @click="search" class="md-icon-button"
@@ -83,8 +85,8 @@ export default {
     return {
       query: '',
       showCategoryBar: 'true',
-      recipesOnly: false,
-      showRecipesOnly: false
+      recipesByIngredients: false,
+      showRecipesByIngredientsOption: false
     }
   },
   methods: {
@@ -114,12 +116,15 @@ export default {
       router.push({
         name: 'index',
         query: {
-          q: this.query
+          q: this.query,
+          i: this.recipesByIngredients
         }
       })
     },
     findComma(v) {
-      this.showRecipesOnly = v.indexOf(',') >= 0
+      if (v) {
+        this.showRecipesByIngredientsOption = v.indexOf(',') >= 0
+      }
     }
   },
   created() {
@@ -135,6 +140,8 @@ export default {
       console.log('no secure token')
     }
     this.query = this.$route.query.q
+    this.recipesByIngredients = this.$route.query.i === 'true'
+    this.findComma(this.query)
   },
   computed: {
     firstname() {
