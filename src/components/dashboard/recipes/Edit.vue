@@ -38,6 +38,33 @@
               >Ops, está faltando os ingredientes</span
             >
           </md-field>
+          <div>
+            <label>Ingredientes (Relacionamento)</label>
+            <md-field v-for="(ingredient, index) in ingredients" :key="index">
+              <label v-if="ingredient.from && !ingredient.waiting"
+                >Novo Ingrediente ({{ ingredient.from }})</label
+              >
+              <md-input
+                v-model="ingredient.name"
+                :disabled="sending || loading || ingredient.waiting"
+                placeholder="Novo ingrediente"
+                :class="{
+                  'ingredient-exists': ingredient.id,
+                  'ingredient-dont-exists': !ingredient.id
+                }"
+                @input="
+                  delete ingredient.id
+                  ingredient.from = 'Desconhecido'
+                "
+              ></md-input>
+              <div @click="ingredients.splice(index, 1)">
+                <md-icon>block</md-icon>
+              </div>
+            </md-field>
+            <div class="add-ingredient" @click.stop="addIngredient">
+              <md-icon>add_circle_outline</md-icon>
+            </div>
+          </div>
           <md-field :class="getValidationClass('directions')">
             <label>Modo de preparo</label>
             <md-textarea
@@ -122,7 +149,8 @@ export default {
       showSnackbar: false,
       snackMessage: '',
       form: {},
-      cover: null
+      cover: null,
+      ingredients: []
     }
   },
   methods: {
@@ -146,6 +174,8 @@ export default {
       const token = this.$cookie.get('SecureToken')
       const recipe = { ...this.form }
       recipe.cover = this.cover
+      this.saveIngredients()
+      recipe.ingredient_ids = this.ingredients.map(ingredient => ingredient.id)
       this.remote.users.recipe.update(
         token,
         recipe,
@@ -156,7 +186,6 @@ export default {
     recipeUpdated(response) {
       this.snackMessage = 'Receita atualizada.'
       this.showSnackbar = true
-      console.log(response.data)
       setTimeout(function() {
         router.push({
           name: 'dashboard.recipes'
@@ -182,6 +211,52 @@ export default {
       reader.onerror = error => {
         console.log('Error: ', error)
       }
+    },
+    addIngredient() {
+      this.ingredients.push({ id: null, name: '' })
+    },
+    filterIngredient(ingredient) {
+      let newName = ingredient.name.replace(/\(.*?\)/g, '')
+
+      let needle = newName.indexOf('de')
+      if (needle) {
+        newName = newName.substring(needle + 3)
+      }
+
+      newName = newName.replace(/(^|\s)\S/g, l => l.toUpperCase())
+      ingredient.name = newName.trim()
+      return ingredient
+    },
+    async searchIngredient(ingredient) {
+      const result = await this.remote.axios.get(
+        `${this.remote.BASE_URL}/ingredients?q=${ingredient.name}`
+      )
+      if (Array.isArray(result.data) && result.data.length > 0) {
+        const first = result.data[0]
+        if (ingredient.from.toLowerCase().includes(first.name.toLowerCase())) {
+          ingredient.id = first.id
+          ingredient.from = false
+        }
+      }
+      ingredient.waiting = false
+    },
+    async saveIngredients() {
+      const token = this.$cookie.get('SecureToken')
+      for (const ingredient of this.ingredients) {
+        if (!ingredient.id) {
+          ingredient.waiting = true
+          let result
+          result = await this.remote.axios.post(
+            `${this.remote.BASE_URL}/ingredients`,
+            { name: ingredient.name },
+            { headers: { 'X-Secure-Token': token } }
+          )
+          ingredient.id = result.data.id
+          ingredient.name = result.data.name
+          ingredient.from = null
+          ingredient.waiting = false
+        }
+      }
     }
   },
   components: {
@@ -190,13 +265,36 @@ export default {
   },
   created() {
     const token = this.$cookie.get('SecureToken')
+    const recipeId = this.$route.params.id
+
     this.remote.users.recipe.show(
       token,
-      this.$route.params.id,
+      recipeId,
       response => {
         this.form = response.data
         this.loading = false
         this.title = `Receita #${this.$route.params.id} - ${this.form.name}`
+
+        this.remote.recipes.ingredients(
+          recipeId,
+          response => {
+            let ingredients = response.data
+            if (Array.isArray(ingredients) && ingredients.length > 0) {
+              this.ingredients = response.data
+            } else {
+              ingredients = this.form.ingredients
+                .split('\n')
+                .map(e => ({ name: e, from: e, waiting: true }))
+                .map(e => this.filterIngredient(e))
+                .filter(e => e.name.length > 0)
+              this.ingredients = ingredients
+              ingredients.forEach(element => {
+                this.searchIngredient(element)
+              })
+            }
+          },
+          error => console.log(error)
+        )
       },
       error => console.log(error)
     )
@@ -221,7 +319,25 @@ export default {
 #text-ingredients {
   height: 300px;
 }
+
 #text-directions {
   height: 300px;
+}
+
+.add-ingredient {
+  text-align: right;
+  padding-bottom: 15px;
+}
+
+.md-icon:hover {
+  color: #2534ff;
+}
+
+.ingredient-exists {
+  text-shadow: 2px 2px 2px rgba(5, 161, 73, 0.43);
+}
+
+.ingredient-dont-exists {
+  text-shadow: 2px 2px 2px rgba(204, 0, 92, 0.4);
 }
 </style>

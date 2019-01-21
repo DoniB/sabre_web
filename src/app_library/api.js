@@ -3,6 +3,8 @@ import axios from 'axios'
 const BASE_URL = 'https://sabre-api.herokuapp.com/api/v1'
 
 const API = {
+  BASE_URL,
+  axios,
   users: {
     recipe: {
       show(token, recipeId, success, error) {
@@ -34,6 +36,9 @@ const API = {
         }
         if (recipe.cover) {
           formData.cover = recipe.cover
+        }
+        if (recipe.ingredient_ids) {
+          formData.ingredient_ids = recipe.ingredient_ids
         }
         axios
           .patch(`${BASE_URL}/users/recipe/${recipe.id}`, formData, {
@@ -176,6 +181,14 @@ const API = {
             if (error) error(err)
           })
       }
+    },
+    ingredients(recipeId, success, error) {
+      axios
+        .get(`${BASE_URL}/recipes/${recipeId}/ingredients`)
+        .then(success)
+        .catch(err => {
+          if (error) error(err)
+        })
     }
   },
   categories: {
