@@ -229,7 +229,7 @@ export default {
     },
     async searchIngredient(ingredient) {
       const result = await this.remote.axios.get(
-        `${this.remote.BASE_URL}/ingredients?q=${ingredient.name}`
+        `${this.remote.BASE_URL}/v1/ingredients?q=${ingredient.name}`
       )
       if (Array.isArray(result.data) && result.data.length > 0) {
         const first = result.data[0]
@@ -247,7 +247,7 @@ export default {
           ingredient.waiting = true
           let result
           result = await this.remote.axios.post(
-            `${this.remote.BASE_URL}/ingredients`,
+            `${this.remote.BASE_URL}/v1/ingredients`,
             { name: ingredient.name },
             { headers: { 'X-Secure-Token': token } }
           )
