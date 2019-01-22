@@ -8,6 +8,7 @@ import router from './router'
 import store from './store'
 import api from './app_library/api.js'
 import auth from './app_library/auth'
+import VueScrollTo from 'vue-scrollto'
 
 import {
   MdApp,
@@ -49,6 +50,19 @@ Vue.use(MdDrawer)
 Vue.use(MdRadio)
 Vue.use(MdDivider)
 Vue.use(VueMaterial)
+Vue.use(VueScrollTo, {
+  container: 'body',
+  duration: 500,
+  easing: 'ease',
+  offset: 0,
+  force: true,
+  cancelable: true,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
 
 Vue.mixin(api)
 Vue.mixin(auth)

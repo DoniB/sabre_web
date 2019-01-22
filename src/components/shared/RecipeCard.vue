@@ -6,7 +6,7 @@
       class="favorite-button"
     ></favorite-button>
     <md-card-media> <img :src="cover" alt="Receita" /> </md-card-media>
-    <md-card-header>
+    <md-card-header :id="`card-recipe-id-${recipe.id}`">
       <div class="md-title">{{ recipe.name }}</div>
       <div class="md-subhead">{{ recipe.owner }}</div>
       <div class="md-subhead recipe-date">
@@ -44,7 +44,9 @@
         </div>
 
         <md-card-expand-trigger @click="showRecipe = !showRecipe">
-          <md-button>Ingredientes</md-button>
+          <md-button v-scroll-to="`#card-recipe-id-${recipe.id}`"
+            >Ingredientes</md-button
+          >
         </md-card-expand-trigger>
       </md-card-actions>
 
