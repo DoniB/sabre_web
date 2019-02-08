@@ -5,7 +5,15 @@
       :mdMini="true"
       class="favorite-button"
     ></favorite-button>
-    <md-card-media> <img :src="cover" alt="Receita" /> </md-card-media>
+    <md-card-media class="recipe-card-media">
+      <img
+        :class="{ 'fit-height': fitHeight, 'fit-width': !fitHeight }"
+        @load="checkImageSize"
+        :src="cover"
+        alt="Receita"
+        :ref="`rcp-img-${recipe.id}`"
+      />
+    </md-card-media>
     <md-card-header :id="`card-recipe-id-${recipe.id}`">
       <div class="md-title">{{ recipe.name }}</div>
       <div class="md-subhead">{{ recipe.owner }}</div>
@@ -75,6 +83,18 @@ export default {
       default: false
     }
   },
+  methods: {
+    checkImageSize() {
+      if (this.$refs[`rcp-img-${this.recipe.id}`].height !== 270) {
+        this.fitHeight = true
+      }
+    }
+  },
+  data() {
+    return {
+      fitHeight: false
+    }
+  },
   computed: {
     ingredients() {
       let htmlItens = ''
@@ -116,5 +136,27 @@ export default {
 .favorite-button {
   top: 5px;
   right: 5px;
+}
+
+.recipe-card-media {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
+}
+
+.fit-height {
+  height: 100%;
+  width: auto;
+  max-width: 1000px;
+}
+
+.fit-width {
+  width: 100%;
+  height: auto;
+  max-height: 1000px;
 }
 </style>
