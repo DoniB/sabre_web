@@ -1,0 +1,29 @@
+version: '3'
+services:
+#  postgres:
+#    restart: always
+#    image: postgres:9.6
+#    environment:
+#      POSTGRES_PASSWORD: postgres_password
+#  api:
+#    restart: always
+#    image: donibtk/beta-sabre-server
+#    volumes:
+#      - ./:/opt/sabre
+#    depends_on:
+#      - postgres
+#    environment:
+#      - SABRE_DATABASE_USERNAME=postgres
+#      - SABRE_DATABASE_PASSWORD=postgres_password
+#      - SABRE_DATABASE_HOST=postgres
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/opt/sabre
+#    depends_on:
+#      - api
