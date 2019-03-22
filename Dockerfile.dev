@@ -1,12 +1,11 @@
 FROM node:10.15.3
 
 RUN apt-get update
-RUN apt-get install chromium firefox-esr -y
+RUN apt-get install firefox-esr -y
 
 WORKDIR /app
 COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm install
-COPY . .
 
 CMD ["npm", "run", "dev"]

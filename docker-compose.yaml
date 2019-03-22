@@ -24,6 +24,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./:/opt/sabre
+      - /app/node_modules
+      - ./:/app
 #    depends_on:
 #      - api
