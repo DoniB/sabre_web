@@ -1,21 +1,22 @@
-version: '3'
+version: '3.2'
 services:
-#  postgres:
-#    restart: always
-#    image: postgres:9.6
-#    environment:
-#      POSTGRES_PASSWORD: postgres_password
-#  api:
-#    restart: always
-#    image: donibtk/beta-sabre-server
-#    volumes:
-#      - ./:/opt/sabre
-#    depends_on:
-#      - postgres
-#    environment:
-#      - SABRE_DATABASE_USERNAME=postgres
-#      - SABRE_DATABASE_PASSWORD=postgres_password
-#      - SABRE_DATABASE_HOST=postgres
+  postgres:
+    restart: always
+    image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: postgres_password
+  api:
+    restart: always
+    ports:
+      - "3000:3000"
+    image: donibtk/beta-sabre-server
+    depends_on:
+      - postgres
+    environment:
+      - SABRE_DATABASE_USERNAME=postgres
+      - SABRE_DATABASE_PASSWORD=postgres_password
+      - SABRE_DATABASE_HOST=postgres
+      - RAILS_MASTER_KEY=${SABRE_RAILS_MASTER_KEY}
   web:
     restart: always
     build:
@@ -26,5 +27,5 @@ services:
     volumes:
       - /app/node_modules
       - ./:/app
-#    depends_on:
-#      - api
+    depends_on:
+      - api

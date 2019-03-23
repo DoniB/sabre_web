@@ -69,6 +69,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
+import { BASE_URL } from '@/app_library/api'
 import router from '@/router'
 
 const axios = require('axios')
@@ -105,7 +106,7 @@ export default {
     },
     doLogin() {
       axios
-        .post('https://sabre-api.herokuapp.com/api/v1/sign_in', {
+        .post(`${BASE_URL}/v1/sign_in`, {
           email: this.form.email,
           password: this.form.password
         })

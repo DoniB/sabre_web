@@ -62,6 +62,7 @@ import { mapActions } from 'vuex'
 import router from '@/router'
 import store from './store'
 import Categories from '@/components/header/Categories.vue'
+import { BASE_URL } from '@/app_library/api'
 const axios = require('axios')
 
 router.beforeEach((to, from, next) => {
@@ -131,7 +132,7 @@ export default {
     let token = this.$cookie.get('SecureToken')
     if (token) {
       axios
-        .get('https://sabre-api.herokuapp.com/api/v1/user', {
+        .get(`${BASE_URL}/v1/user`, {
           headers: { 'X-Secure-Token': token }
         })
         .then(this.doLogin)

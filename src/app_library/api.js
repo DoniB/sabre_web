@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://sabre-api.herokuapp.com/api'
+export const BASE_URL = process.env.VUE_APP_BASE_URL || '/api'
 
 const API = {
   BASE_URL,

@@ -93,6 +93,7 @@ import Comments from '@/components/comments/Comments.vue'
 import Rating from '@/components/shared/Rating.vue'
 import FavoriteButton from '@/components/shared/FavoriteButton.vue'
 import DateMixin from '@/app_library/date.js'
+import { BASE_URL } from '@/app_library/api'
 const axios = require('axios')
 
 export default {
@@ -120,10 +121,7 @@ export default {
   },
   created() {
     axios
-      .get(
-        'https://sabre-api.herokuapp.com/api/v1/recipes/' +
-          this.$route.params.id
-      )
+      .get(`${BASE_URL}/v1/recipes/${this.$route.params.id}`)
       .then(this.setRecipe)
       .catch(error => {
         console.log(error)
