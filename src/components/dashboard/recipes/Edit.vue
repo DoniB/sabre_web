@@ -44,7 +44,9 @@
               <label v-if="ingredient.from && !ingredient.waiting"
                 >Novo Ingrediente ({{ ingredient.from }})</label
               >
-              <md-input
+              <label v-else-if="ingredient.id && ingredient.remoteName"
+                >Usando ({{ ingredient.remoteName }})</label
+              ><md-input
                 v-model="ingredient.name"
                 :disabled="sending || loading || ingredient.waiting"
                 placeholder="Novo ingrediente"
@@ -52,10 +54,7 @@
                   'ingredient-exists': ingredient.id,
                   'ingredient-dont-exists': !ingredient.id
                 }"
-                @input="
-                  delete ingredient.id
-                  ingredient.from = 'Desconhecido'
-                "
+                @input="updateIngredient(index)"
               ></md-input>
               <div @click="ingredients.splice(index, 1)">
                 <md-icon>block</md-icon>
@@ -232,13 +231,30 @@ export default {
         `${this.remote.BASE_URL}/v1/ingredients?q=${ingredient.name}`
       )
       if (Array.isArray(result.data) && result.data.length > 0) {
-        const first = result.data[0]
-        if (ingredient.from.toLowerCase().includes(first.name.toLowerCase())) {
-          ingredient.id = first.id
-          ingredient.from = false
+        for (let ing of result.data) {
+          if (ingredient.from === false) return result
+          if (ingredient.from.toLowerCase().includes(ing.name.toLowerCase())) {
+            ingredient.id = ing.id
+            ingredient.from = false
+            ingredient.remoteName = ing.name
+          }
         }
       }
       ingredient.waiting = false
+      return result
+    },
+    async updateIngredient(index) {
+      const ingredient = this.ingredients[index]
+      delete ingredient.id
+      const result = (await this.searchIngredient(ingredient)).data
+      for (let ing of result) {
+        if (ingredient.name.toLowerCase().includes(ing.name.toLowerCase())) {
+          ingredient.id = ing.id
+          ingredient.remoteName = ing.name
+          ingredient.from = false
+        }
+      }
+      this.ingredients[index] = ingredient
     },
     async saveIngredients() {
       const token = this.$cookie.get('SecureToken')
