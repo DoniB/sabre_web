@@ -52,7 +52,11 @@
 
     <!-- <router-link to="/sign">Entrar</router-link> -->
     <div class="md-layout router-body">
-      <div class="md-layout-item md-size-100"><router-view></router-view></div>
+      <div class="md-layout-item md-size-100">
+        <div style="max-width: 1300px; margin: auto;">
+          <router-view></router-view>
+        </div>
+      </div>
     </div>
   </div>
 </template>
