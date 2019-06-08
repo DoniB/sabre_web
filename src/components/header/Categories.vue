@@ -33,7 +33,7 @@ export default {
   created() {
     this.remote.categories.index(
       res => {
-        this.categories = res.data
+        this.categories = res.data.slice(0, 12)
       },
       err => console.log('error loading categories at header', err)
     )
