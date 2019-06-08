@@ -9,6 +9,7 @@
       <img
         :class="{ 'fit-height': fitHeight, 'fit-width': !fitHeight }"
         @load="checkImageSize"
+        @click="openRecipe"
         :src="cover"
         alt="Receita"
         :ref="`rcp-img-${recipe.id}`"
@@ -88,6 +89,12 @@ export default {
       if (this.$refs[`rcp-img-${this.recipe.id}`].height !== 270) {
         this.fitHeight = true
       }
+    },
+    openRecipe() {
+      this.$router.push({
+        name: 'recipe.show',
+        params: { id: this.recipe.id, friendlyUrl: this.friendlyUrl }
+      })
     }
   },
   data() {
