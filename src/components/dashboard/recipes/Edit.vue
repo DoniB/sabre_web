@@ -233,7 +233,10 @@ export default {
       if (Array.isArray(result.data) && result.data.length > 0) {
         for (let ing of result.data) {
           if (ingredient.from === false) return result
-          if (ingredient.from.toLowerCase().includes(ing.name.toLowerCase())) {
+          if (
+            ingredient.name.toLowerCase().includes(ing.name.toLowerCase()) &&
+            Math.abs(ingredient.name.length - ing.name.length) < 2
+          ) {
             ingredient.id = ing.id
             ingredient.from = false
             ingredient.remoteName = ing.name
@@ -248,7 +251,10 @@ export default {
       delete ingredient.id
       const result = (await this.searchIngredient(ingredient)).data
       for (let ing of result) {
-        if (ingredient.name.toLowerCase().includes(ing.name.toLowerCase())) {
+        if (
+          ingredient.name.toLowerCase().includes(ing.name.toLowerCase()) &&
+          Math.abs(ingredient.name.length - ing.name.length) < 2
+        ) {
           ingredient.id = ing.id
           ingredient.remoteName = ing.name
           ingredient.from = false
