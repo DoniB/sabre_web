@@ -24,7 +24,7 @@
             <md-file
               placeholder="Foto (opcional)"
               :disabled="sending"
-              accept="image/x-png,image/jpeg"
+              accept="image/*"
               @change="fileChange($event.target)"
             />
           </md-field>
