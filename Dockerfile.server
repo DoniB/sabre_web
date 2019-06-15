@@ -1,0 +1,10 @@
+FROM  donibtk/beta-sabre-server
+
+WORKDIR /opt/sabre
+
+ENV RAILS_ENV='development'
+ENV RACK_ENV='development'
+
+RUN bundle install  --jobs 20 --retry 5 --with test development
+
+CMD ["bash", "start_server.sh"]
