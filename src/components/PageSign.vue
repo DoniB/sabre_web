@@ -2,7 +2,7 @@
   <div>
     <form novalidate class="md-layout" @submit.prevent>
       <md-card
-        class="md-layout-item md-size-50 md-xsmall-size-90 md-small-size-50 md-medium-size-40 md-large-size-25 md-xlarge-size-15 sign-card"
+        class="md-layout-item md-size-50 md-xsmall-size-90 md-small-size-50 md-medium-size-40 md-large-size-35 md-xlarge-size-30 sign-card"
       >
         <md-card-header>
           <md-tabs md-alignment="centered">
